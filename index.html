@@ -1,0 +1,1922 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>المنصة الإدارية الذكية | مديرية التربية والتعليم</title>
+  
+  <!-- Google Fonts: Cairo -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+  
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      darkMode: 'class',
+      theme: {
+        extend: {
+          fontFamily: {
+            sans: ['Cairo', 'sans-serif'],
+          },
+          colors: {
+            brand: {
+              50: '#f0f7ff',
+              100: '#e0effe',
+              500: '#0284c7',
+              600: '#0369a1',
+              700: '#075985',
+              800: '#0c4a6e',
+              900: '#082f49',
+            },
+            accent: {
+              emerald: '#059669',
+              amber: '#d97706',
+              rose: '#e11d48'
+            }
+          }
+        }
+      }
+    }
+  </script>
+
+  <style>
+    /* تخصيص شريط التمرير */
+    ::-webkit-scrollbar {
+      width: 6px;
+      height: 6px;
+    }
+    ::-webkit-scrollbar-track {
+      background: rgba(0, 0, 0, 0.05);
+    }
+    .dark ::-webkit-scrollbar-track {
+      background: rgba(255, 255, 255, 0.05);
+    }
+    ::-webkit-scrollbar-thumb {
+      background: rgba(100, 116, 139, 0.4);
+      border-radius: 9999px;
+    }
+    ::-webkit-scrollbar-thumb:hover {
+      background: rgba(100, 116, 139, 0.7);
+    }
+    
+    /* تمييز نتائج البحث */
+    mark.highlight {
+      background-color: #fef08a;
+      color: #854d0e;
+      padding: 1px 4px;
+      border-radius: 4px;
+      font-weight: 600;
+    }
+    .dark mark.highlight {
+      background-color: #854d0e;
+      color: #fef08a;
+    }
+
+    /* أنيميشن ناعم للإشعارات والأكورديون */
+    .accordion-content {
+      transition: max-height 0.35s cubic-bezier(0.4, 0, 0.2, 1), opacity 0.3s ease;
+    }
+  </style>
+</head>
+
+<body class="bg-slate-50 dark:bg-slate-900 text-slate-800 dark:text-slate-100 font-sans min-h-screen flex flex-col transition-colors duration-300">
+
+  <!-- شريط الترويسة الرئيسي -->
+  <header class="sticky top-0 z-40 bg-white/95 dark:bg-slate-800/95 backdrop-blur border-b border-slate-200 dark:border-slate-700 shadow-sm transition-colors">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="flex items-center justify-between h-16">
+        
+        <!-- الهوية الرسمية -->
+        <div class="flex items-center gap-3">
+          <div class="w-10 h-10 rounded-xl bg-gradient-to-tr from-brand-700 to-sky-500 flex items-center justify-center text-white shadow-md shadow-brand-500/20">
+            <!-- أيقونة الصرح التعليمي -->
+            <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 14l9-5-9-5-9 5 9 5z"/>
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 14l6.16-3.422a12.083 12.083 0 01.665 6.479A11.952 11.952 0 0012 20.055a11.952 11.952 0 00-6.824-2.998 12.078 12.078 0 01.665-6.479L12 14z"/>
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 14v7"/>
+            </svg>
+          </div>
+          <div>
+            <div class="flex items-center gap-2">
+              <h1 class="text-base sm:text-lg font-bold tracking-tight text-slate-900 dark:text-white leading-none">مديرية التربية والتعليم</h1>
+              <span class="text-[11px] bg-brand-100 dark:bg-brand-900/60 text-brand-700 dark:text-brand-300 font-semibold px-2 py-0.5 rounded-full border border-brand-200 dark:border-brand-700/50">النظام الإداري الموحد</span>
+            </div>
+            <p class="text-xs text-slate-500 dark:text-slate-400 mt-1">المنصة الذكية للرد الآلي وتتبع المهام المؤسسية</p>
+          </div>
+        </div>
+
+        <!-- أزرار التبديل وأدوات التحكم -->
+        <div class="flex items-center gap-2 sm:gap-3">
+          <!-- أزرار التبويب الرئيسية -->
+          <nav class="hidden md:flex bg-slate-100 dark:bg-slate-700/60 p-1 rounded-xl border border-slate-200 dark:border-slate-600">
+            <button onclick="switchMainTab('faq-tab')" id="nav-btn-faq" class="flex items-center gap-2 px-3 py-1.5 rounded-lg text-xs font-bold transition-all bg-white dark:bg-slate-800 text-brand-600 dark:text-sky-400 shadow-sm">
+              <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8.228 9c.549-1.165 2.03-2 3.772-2 2.21 0 4 1.343 4 3 0 1.4-1.278 2.575-3.006 2.907-.542.104-.994.54-.994 1.093m0 3h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+              الدليل والرد الآلي
+            </button>
+            <button onclick="switchMainTab('tasks-tab')" id="nav-btn-tasks" class="flex items-center gap-2 px-3 py-1.5 rounded-lg text-xs font-bold transition-all text-slate-600 dark:text-slate-300 hover:text-slate-900 dark:hover:text-white">
+              <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-6 9l2 2 4-4"/></svg>
+              إدارة المهام الإدارية
+              <span id="header-task-count" class="bg-brand-500 text-white text-[10px] px-1.5 py-0.2 rounded-full">0</span>
+            </button>
+          </nav>
+
+          <!-- زر تحويل النمط داكن / فاتح -->
+          <button id="theme-toggle" onclick="toggleTheme()" aria-label="تبديل الوضع الليلي" class="p-2 rounded-xl text-slate-500 hover:text-slate-900 dark:text-slate-400 dark:hover:text-white hover:bg-slate-100 dark:hover:bg-slate-700 transition">
+            <svg id="theme-icon-light" class="w-5 h-5 hidden" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z"/></svg>
+            <svg id="theme-icon-dark" class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z"/></svg>
+          </button>
+        </div>
+
+      </div>
+      
+      <!-- شريط التنقل على الهواتف -->
+      <div class="flex md:hidden border-t border-slate-200 dark:border-slate-700 py-2 gap-2">
+        <button onclick="switchMainTab('faq-tab')" id="mobile-nav-faq" class="flex-1 py-1.5 text-center text-xs font-bold rounded-lg bg-brand-50 dark:bg-brand-900/40 text-brand-600 dark:text-brand-300">
+          دليل الاستفسارات
+        </button>
+        <button onclick="switchMainTab('tasks-tab')" id="mobile-nav-tasks" class="flex-1 py-1.5 text-center text-xs font-bold rounded-lg text-slate-600 dark:text-slate-400">
+          جدول المهام
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <!-- بنر التلميح الإداري اليومي التحفيزي -->
+  <section class="bg-gradient-to-r from-brand-800 via-brand-700 to-sky-700 text-white shadow-inner relative overflow-hidden">
+    <div class="absolute -right-8 -top-8 w-40 h-40 bg-white/5 rounded-full blur-2xl pointer-events-none"></div>
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-3 flex items-center justify-between gap-4">
+      <div class="flex items-center gap-3">
+        <div class="p-2 rounded-lg bg-white/10 text-sky-200 backdrop-blur shrink-0">
+          <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"/></svg>
+        </div>
+        <div>
+          <span class="text-[11px] font-bold uppercase tracking-wider text-sky-200 block">التلميح الإداري والتربوي لليوم</span>
+          <p id="tip-text" class="text-xs sm:text-sm font-medium text-white/95 leading-snug">جاري تحميل التوجيه الإداري...</p>
+        </div>
+      </div>
+      <button onclick="loadRandomTip()" title="تلميح آخر" class="shrink-0 p-1.5 rounded-lg bg-white/10 hover:bg-white/20 text-sky-100 transition text-xs flex items-center gap-1">
+        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"/></svg>
+        <span class="hidden sm:inline">تحديث</span>
+      </button>
+    </div>
+  </section>
+
+  <!-- الحاوية الأساسية للمحتوى -->
+  <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6 flex-1 w-full">
+
+    <!-- ==================== التبويب الأول: الدليل والرد الآلي ==================== -->
+    <div id="faq-tab" class="space-y-6">
+      
+      <!-- شبكة العرض: قسم المساعد التفاعلي + قسم دليل الاستفسارات -->
+      <div class="grid grid-cols-1 lg:grid-cols-12 gap-6">
+
+        <!-- العمود الأيمن: قاعدة المعرفة والأكورديون الذكي (7 أعمدة) -->
+        <div class="lg:col-span-7 space-y-4">
+          
+          <!-- بطاقة التحكم والبحث -->
+          <div class="bg-white dark:bg-slate-800 p-4 rounded-2xl border border-slate-200 dark:border-slate-700 shadow-sm space-y-3">
+            <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-2">
+              <div>
+                <h2 class="text-base font-bold text-slate-900 dark:text-white flex items-center gap-2">
+                  <span>الدليل الإجرائي المعتمد</span>
+                  <span id="results-count" class="text-xs font-medium text-slate-500 dark:text-slate-400 bg-slate-100 dark:bg-slate-700 px-2 py-0.5 rounded-md">0 استفسار</span>
+                </h2>
+                <p class="text-xs text-slate-500 dark:text-slate-400">لوائح، شروط ومسارات المعاملات في المديرية</p>
+              </div>
+
+              <!-- زر إظهار المفضلة فقط -->
+              <button id="toggle-fav-filter" onclick="toggleFavoritesOnly()" class="text-xs flex items-center justify-center gap-1.5 px-3 py-1.5 rounded-lg border border-slate-200 dark:border-slate-600 text-slate-600 dark:text-slate-300 hover:bg-slate-50 dark:hover:bg-slate-700/50 transition">
+                <svg id="fav-filter-icon" class="w-4 h-4 text-amber-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11.049 2.927c.3-.921 1.603-.921 1.902 0l1.519 4.674a1 1 0 00.95.69h4.915c.969 0 1.371 1.24.588 1.81l-3.976 2.888a1 1 0 00-.363 1.118l1.518 4.674c.3.922-.755 1.688-1.538 1.118l-3.976-2.888a1 1 0 00-1.176 0l-3.976 2.888c-.783.57-1.838-.197-1.538-1.118l1.518-4.674a1 1 0 00-.363-1.118l-3.976-2.888c-.784-.57-.38-1.81.588-1.81h4.914a1 1 0 00.951-.69l1.519-4.674z"/></svg>
+                <span id="fav-filter-label">المفضلة فقط</span>
+              </button>
+            </div>
+
+            <!-- شريط البحث المباشر -->
+            <div class="relative">
+              <input type="text" id="faq-search-input" oninput="handleFaqSearch()" placeholder="ابحث عن: إجازة، نقل داخلي، ترقية، مكافأة امتحانات، تصديق شهادة..." class="w-full pl-10 pr-10 py-2.5 bg-slate-50 dark:bg-slate-900/80 border border-slate-200 dark:border-slate-700 rounded-xl text-sm focus:ring-2 focus:ring-brand-500 focus:border-transparent outline-none transition placeholder:text-slate-400">
+              <div class="absolute inset-y-0 right-0 pr-3 flex items-center pointer-events-none text-slate-400">
+                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/></svg>
+              </div>
+              <button onclick="clearSearch()" id="clear-search-btn" class="hidden absolute inset-y-0 left-0 pl-3 flex items-center text-slate-400 hover:text-slate-600 dark:hover:text-slate-200">
+                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/></svg>
+              </button>
+            </div>
+
+            <!-- أزرار التصنيف والأقسام -->
+            <div class="flex items-center gap-1.5 overflow-x-auto pb-1 pt-1 no-scrollbar text-xs">
+              <button onclick="filterCategory('all')" data-cat="all" class="cat-pill active px-3 py-1.5 rounded-lg font-semibold bg-brand-600 text-white shrink-0 shadow-sm transition">الكل</button>
+              <button onclick="filterCategory('admin')" data-cat="admin" class="cat-pill px-3 py-1.5 rounded-lg font-semibold bg-slate-100 dark:bg-slate-700 text-slate-600 dark:text-slate-300 hover:bg-slate-200 shrink-0 transition">الشؤون الإدارية</button>
+              <button onclick="filterCategory('finance')" data-cat="finance" class="cat-pill px-3 py-1.5 rounded-lg font-semibold bg-slate-100 dark:bg-slate-700 text-slate-600 dark:text-slate-300 hover:bg-slate-200 shrink-0 transition">الشؤون المالية</button>
+              <button onclick="filterCategory('planning')" data-cat="planning" class="cat-pill px-3 py-1.5 rounded-lg font-semibold bg-slate-100 dark:bg-slate-700 text-slate-600 dark:text-slate-300 hover:bg-slate-200 shrink-0 transition">التخطيط والمشاريع</button>
+              <button onclick="filterCategory('exams')" data-cat="exams" class="cat-pill px-3 py-1.5 rounded-lg font-semibold bg-slate-100 dark:bg-slate-700 text-slate-600 dark:text-slate-300 hover:bg-slate-200 shrink-0 transition">الامتحانات والشهادات</button>
+              <button onclick="filterCategory('legal')" data-cat="legal" class="cat-pill px-3 py-1.5 rounded-lg font-semibold bg-slate-100 dark:bg-slate-700 text-slate-600 dark:text-slate-300 hover:bg-slate-200 shrink-0 transition">الشؤون القانونية</button>
+            </div>
+          </div>
+
+          <!-- قائمة الأكورديون للأسئلة المعتمدة -->
+          <div id="faq-accordion-container" class="space-y-2.5">
+            <!-- يتم تعبئة الأسئلة بواسطة JavaScript -->
+          </div>
+
+          <!-- حالة عدم وجود نتائج -->
+          <div id="no-results" class="hidden text-center py-12 bg-white dark:bg-slate-800 rounded-2xl border border-slate-200 dark:border-slate-700 p-6">
+            <div class="w-12 h-12 rounded-full bg-slate-100 dark:bg-slate-700 text-slate-400 flex items-center justify-center mx-auto mb-3">
+              <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9.172 16.172a4 4 0 015.656 0M9 10h.01M15 10h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+            </div>
+            <h3 class="text-sm font-bold text-slate-700 dark:text-slate-300">لم يتم العثور على إجراء مطابق</h3>
+            <p class="text-xs text-slate-500 dark:text-slate-400 mt-1">جرّب كلمات بحث أخرى أو اطرح سؤالك مباشرة على المساعد التفاعلي على اليسار.</p>
+          </div>
+        </div>
+
+        <!-- العمود الأيسر: نافذة المساعد الذكي التفاعلي (5 أعمدة) -->
+        <div class="lg:col-span-5">
+          <div class="bg-white dark:bg-slate-800 rounded-2xl border border-slate-200 dark:border-slate-700 shadow-sm flex flex-col h-[650px] sticky top-20">
+            
+            <!-- رأس المحادثة المطور -->
+            <div class="p-3.5 border-b border-slate-200 dark:border-slate-700 flex items-center justify-between bg-slate-50/80 dark:bg-slate-800/80 rounded-t-2xl">
+              <div class="flex items-center gap-2.5">
+                <div class="relative">
+                  <div class="w-9 h-9 rounded-full bg-gradient-to-tr from-brand-600 via-sky-500 to-teal-400 flex items-center justify-center text-white shadow-md shadow-brand-500/20">
+                    <svg class="w-5 h-5 animate-pulse" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9.75 17L9 20l-1 1h8l-1-1-.75-3M3 13h18M5 17h14a2 2 0 002-2V5a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/>
+                    </svg>
+                  </div>
+                  <span class="absolute bottom-0 right-0 w-2.5 h-2.5 bg-emerald-500 border-2 border-white dark:border-slate-800 rounded-full"></span>
+                </div>
+                <div>
+                  <div class="flex items-center gap-1.5">
+                    <h3 class="text-xs font-bold text-slate-900 dark:text-white">المساعد الإداري الذكي</h3>
+                    <span class="text-[9px] bg-emerald-100 dark:bg-emerald-900/60 text-emerald-700 dark:text-emerald-300 font-bold px-1.5 py-0.2 rounded-md">مستجيب آلي + صوتي</span>
+                  </div>
+                  <span class="text-[10px] text-slate-500 dark:text-slate-400 font-medium">رد فوري، دعم الأوامر الذكية وتحويلها لمهام</span>
+                </div>
+              </div>
+
+              <!-- أزرار التحكم برأس المحادثة -->
+              <div class="flex items-center gap-1">
+                <button onclick="readWelcomeMessageVoice()" title="استماع للترحيب الصوتي" class="text-slate-400 hover:text-brand-600 dark:hover:text-sky-400 p-1.5 rounded-lg hover:bg-slate-100 dark:hover:bg-slate-700 transition">
+                  <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15.536 8.464a5 5 0 010 7.072m2.828-9.9a9 9 0 010 12.728M5.586 15H4a1 1 0 01-1-1v-4a1 1 0 011-1h1.586l4.707-4.707C10.923 3.663 12 4.109 12 5v14c0 .891-1.077 1.337-1.707.707L5.586 15z"/></svg>
+                </button>
+                <button onclick="clearChat()" title="بدء محادثة جديدة" class="text-slate-400 hover:text-slate-600 dark:hover:text-slate-300 p-1.5 rounded-lg hover:bg-slate-100 dark:hover:bg-slate-700 transition">
+                  <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"/></svg>
+                </button>
+              </div>
+            </div>
+
+            <!-- نافذة الرسائل التفاعلية -->
+            <div id="chat-messages" class="flex-1 p-3.5 overflow-y-auto space-y-3 text-xs">
+              <!-- رسالة ترحيب أولية متطورة -->
+              <div class="flex items-start gap-2 max-w-[92%]">
+                <div class="w-7 h-7 rounded-full bg-brand-600 text-white flex items-center justify-center shrink-0 text-[10px] font-bold shadow-sm">AI</div>
+                <div class="bg-slate-100 dark:bg-slate-700/80 p-3 rounded-2xl rounded-tr-none text-slate-700 dark:text-slate-200 leading-relaxed space-y-2 shadow-sm border border-slate-200/50 dark:border-slate-600/50">
+                  <p class="font-semibold text-slate-900 dark:text-white">أهلاً بك في وحدة الرد الآلي الذكية لمديرية التربية والتعليم 🎓</p>
+                  <p>أنا مساعدك الإداري المؤتمت، جاهز للإجابة على استفساراتك التربوية، اللوائح، أو **جدولة المهام تلقائياً** في جدول أعمالك.</p>
+                  <div class="bg-white/80 dark:bg-slate-800/80 p-2 rounded-xl text-[11px] text-slate-600 dark:text-slate-300 border border-slate-200 dark:border-slate-700 space-y-1">
+                    <p class="font-bold text-brand-700 dark:text-sky-300">💡 ميزة الأوامر المباشرة:</p>
+                    <p>اكتب مثلاً: <code class="text-rose-600 dark:text-rose-400 font-mono font-bold bg-rose-50 dark:bg-rose-900/30 px-1 rounded">أضف مهمة: تدقيق سجلات الحضور</code> وسأضيفها فوراً لجدول مهامك!</p>
+                  </div>
+                  <p class="text-[10px] text-slate-500 dark:text-slate-400">يمكنك التحدث صوتياً عبر زر الميكروفون 🎙️ أو اختيار سؤال سريع أدناه.</p>
+                </div>
+              </div>
+            </div>
+
+            <!-- مؤشر جاري المعالجة والكتابة -->
+            <div id="chat-typing" class="hidden px-4 py-2 flex items-center gap-2 text-[11px] text-brand-600 dark:text-sky-400">
+              <span class="flex gap-1">
+                <span class="w-1.5 h-1.5 bg-brand-500 rounded-full animate-bounce"></span>
+                <span class="w-1.5 h-1.5 bg-brand-500 rounded-full animate-bounce [animation-delay:0.2s]"></span>
+                <span class="w-1.5 h-1.5 bg-brand-500 rounded-full animate-bounce [animation-delay:0.4s]"></span>
+              </span>
+              <span>جاري تحليل الاستفسار واسترجاع اللائحة المعتمدة...</span>
+            </div>
+
+            <!-- مؤشر الاستماع الصوتي المباشر -->
+            <div id="voice-recording-indicator" class="hidden px-4 py-2 bg-rose-50 dark:bg-rose-900/30 border-t border-rose-200 dark:border-rose-800 flex items-center justify-between text-[11px] text-rose-600 dark:text-rose-300">
+              <span class="flex items-center gap-2">
+                <span class="w-2.5 h-2.5 bg-rose-600 rounded-full animate-ping"></span>
+                <span class="font-bold">المساعد يستمع إليك الآن... تحدث بصوت واضح</span>
+              </span>
+              <button onclick="stopSpeechRecognition()" class="text-[10px] underline font-bold">إلغاء</button>
+            </div>
+
+            <!-- مقترحات استفسارات سريعة بنقرة واحدة -->
+            <div class="p-2 border-t border-slate-100 dark:border-slate-700/60 bg-slate-50/50 dark:bg-slate-900/30">
+              <div class="flex items-center gap-1.5 overflow-x-auto pb-1 text-[11px] no-scrollbar">
+                <button onclick="sendQuickPrompt('ما هو نصاب الحصص الأسبوعي للمعلم؟')" class="shrink-0 px-2.5 py-1 rounded-full bg-white dark:bg-slate-700 border border-slate-200 dark:border-slate-600 text-slate-600 dark:text-slate-300 hover:border-brand-500 hover:text-brand-600 transition">نصاب الحصص</button>
+                <button onclick="sendQuickPrompt('ما هي شروط إجازة الأمومة ورعاية الطفل؟')" class="shrink-0 px-2.5 py-1 rounded-full bg-white dark:bg-slate-700 border border-slate-200 dark:border-slate-600 text-slate-600 dark:text-slate-300 hover:border-brand-500 hover:text-brand-600 transition">إجازة الأمومة</button>
+                <button onclick="sendQuickPrompt('ما هي شروط النقل الداخلي للمعلمين؟')" class="shrink-0 px-2.5 py-1 rounded-full bg-white dark:bg-slate-700 border border-slate-200 dark:border-slate-600 text-slate-600 dark:text-slate-300 hover:border-brand-500 hover:text-brand-600 transition">نقل داخلي</button>
+                <button onclick="sendQuickPrompt('كيف أطلب إجازة مرضية معتمدة؟')" class="shrink-0 px-2.5 py-1 rounded-full bg-white dark:bg-slate-700 border border-slate-200 dark:border-slate-600 text-slate-600 dark:text-slate-300 hover:border-brand-500 hover:text-brand-600 transition">إجازة مرضية</button>
+                <button onclick="sendQuickPrompt('أضف مهمة: مراجعة كشوفات المراقبين للامتحانات')" class="shrink-0 px-2.5 py-1 rounded-full bg-brand-50 dark:bg-brand-900/40 border border-brand-300 dark:border-brand-700 text-brand-700 dark:text-sky-300 font-bold hover:bg-brand-100 transition">⚡ أمر مهمة تلقائية</button>
+              </div>
+            </div>
+
+            <!-- حقل إدخال الرسالة مع زر الميكروفون والإرسال -->
+            <form onsubmit="handleChatSubmit(event)" class="p-3 border-t border-slate-200 dark:border-slate-700 flex items-center gap-2">
+              <input type="text" id="chat-input" placeholder="اكتب استفسارك، أو أمر: 'أضف مهمة: ...'" class="flex-1 px-3.5 py-2.5 bg-slate-50 dark:bg-slate-900 border border-slate-200 dark:border-slate-700 rounded-xl text-xs focus:ring-2 focus:ring-brand-500 focus:border-transparent outline-none transition placeholder:text-slate-400">
+              
+              <!-- زر الإدخال الصوتي -->
+              <button type="button" id="voice-input-btn" onclick="toggleSpeechRecognition()" title="التحدث صوتياً (Voice Input)" class="p-2.5 rounded-xl bg-slate-100 hover:bg-slate-200 dark:bg-slate-700 dark:hover:bg-slate-600 text-slate-600 dark:text-slate-200 transition shrink-0 flex items-center justify-center">
+                <svg id="mic-icon" class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 11a7 7 0 01-7 7m0 0a7 7 0 01-7-7m7 7v4m0 0H8m4 0h4m-4-8a3 3 0 01-3-3V5a3 3 0 116 0v6a3 3 0 01-3 3z"/>
+                </svg>
+              </button>
+
+              <!-- زر إرسال الاستفسار -->
+              <button type="submit" title="إرسال" class="p-2.5 rounded-xl bg-brand-600 hover:bg-brand-700 text-white shadow-sm transition shrink-0 flex items-center justify-center">
+                <svg class="w-4 h-4 transform -rotate-90" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 19l9 2-9-18-9 18 9-2zm0 0v-8"/></svg>
+              </button>
+            </form>
+
+          </div>
+        </div>
+
+      </div>
+
+    </div>
+
+    <!-- ==================== التبويب الثاني: إدارة وتتبع المهام ==================== -->
+    <div id="tasks-tab" class="hidden space-y-6">
+      
+      <!-- شريط إحصائيات الإنجاز والتحفيز (Gamification Header) -->
+      <div class="grid grid-cols-2 sm:grid-cols-4 gap-3 sm:gap-4">
+        
+        <!-- إجمالي المهام -->
+        <div class="bg-white dark:bg-slate-800 p-4 rounded-2xl border border-slate-200 dark:border-slate-700 shadow-sm flex items-center justify-between">
+          <div>
+            <span class="text-[11px] font-semibold text-slate-500 dark:text-slate-400 block">إجمالي المهام</span>
+            <span id="stat-total" class="text-xl sm:text-2xl font-black text-slate-800 dark:text-white">0</span>
+          </div>
+          <div class="w-10 h-10 rounded-xl bg-blue-50 dark:bg-blue-900/30 text-blue-600 dark:text-blue-400 flex items-center justify-center">
+            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2"/></svg>
+          </div>
+        </div>
+
+        <!-- المنجزة -->
+        <div class="bg-white dark:bg-slate-800 p-4 rounded-2xl border border-slate-200 dark:border-slate-700 shadow-sm flex items-center justify-between">
+          <div>
+            <span class="text-[11px] font-semibold text-emerald-600 dark:text-emerald-400 block">المهام المنجزة</span>
+            <span id="stat-completed" class="text-xl sm:text-2xl font-black text-emerald-600 dark:text-emerald-400">0</span>
+          </div>
+          <div class="w-10 h-10 rounded-xl bg-emerald-50 dark:bg-emerald-900/30 text-emerald-600 dark:text-emerald-400 flex items-center justify-center">
+            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg>
+          </div>
+        </div>
+
+        <!-- قيد التنفيذ -->
+        <div class="bg-white dark:bg-slate-800 p-4 rounded-2xl border border-slate-200 dark:border-slate-700 shadow-sm flex items-center justify-between">
+          <div>
+            <span class="text-[11px] font-semibold text-amber-600 dark:text-amber-400 block">قيد المتابعة</span>
+            <span id="stat-pending" class="text-xl sm:text-2xl font-black text-amber-600 dark:text-amber-400">0</span>
+          </div>
+          <div class="w-10 h-10 rounded-xl bg-amber-50 dark:bg-amber-900/30 text-amber-600 dark:text-amber-400 flex items-center justify-center">
+            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+          </div>
+        </div>
+
+        <!-- المتأخرة أو الحرجة -->
+        <div class="bg-white dark:bg-slate-800 p-4 rounded-2xl border border-slate-200 dark:border-slate-700 shadow-sm flex items-center justify-between">
+          <div>
+            <span class="text-[11px] font-semibold text-rose-600 dark:text-rose-400 block">متأخرة / استحقاق وشيك</span>
+            <span id="stat-overdue" class="text-xl sm:text-2xl font-black text-rose-600 dark:text-rose-400">0</span>
+          </div>
+          <div class="w-10 h-10 rounded-xl bg-rose-50 dark:bg-rose-900/30 text-rose-600 dark:text-rose-400 flex items-center justify-center">
+            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"/></svg>
+          </div>
+        </div>
+
+      </div>
+
+      <!-- بطاقة مؤشر الإنجاز المؤسسي -->
+      <div class="bg-white dark:bg-slate-800 p-4 rounded-2xl border border-slate-200 dark:border-slate-700 shadow-sm space-y-2">
+        <div class="flex items-center justify-between text-xs font-bold">
+          <div class="flex items-center gap-2">
+            <span class="w-2.5 h-2.5 rounded-full bg-brand-500"></span>
+            <span>معدل الإنجاز الإداري التراكمي</span>
+          </div>
+          <span id="progress-percentage" class="text-brand-600 dark:text-brand-400 font-extrabold text-sm">0%</span>
+        </div>
+        <div class="w-full bg-slate-100 dark:bg-slate-700 h-2.5 rounded-full overflow-hidden">
+          <div id="progress-bar-fill" class="bg-gradient-to-l from-emerald-500 to-brand-500 h-full rounded-full transition-all duration-500" style="width: 0%"></div>
+        </div>
+      </div>
+
+      <!-- شريط أدوات المهام (فلترة، تصدير، استيراد، إضافة) -->
+      <div class="bg-white dark:bg-slate-800 p-4 rounded-2xl border border-slate-200 dark:border-slate-700 shadow-sm flex flex-col md:flex-row md:items-center justify-between gap-4">
+        
+        <!-- تصفيات المهام -->
+        <div class="flex flex-wrap items-center gap-2 text-xs">
+          <button onclick="filterTasksByStatus('all')" id="task-filter-all" class="task-status-btn active px-3 py-1.5 rounded-lg font-bold bg-slate-800 text-white dark:bg-slate-100 dark:text-slate-900 transition">الكل</button>
+          <button onclick="filterTasksByStatus('pending')" id="task-filter-pending" class="task-status-btn px-3 py-1.5 rounded-lg font-bold bg-slate-100 dark:bg-slate-700 text-slate-600 dark:text-slate-300 hover:bg-slate-200 transition">قيد التنفيذ</button>
+          <button onclick="filterTasksByStatus('completed')" id="task-filter-completed" class="task-status-btn px-3 py-1.5 rounded-lg font-bold bg-slate-100 dark:bg-slate-700 text-slate-600 dark:text-slate-300 hover:bg-slate-200 transition">المكتملة</button>
+          <button onclick="filterTasksByStatus('urgent')" id="task-filter-urgent" class="task-status-btn px-3 py-1.5 rounded-lg font-bold bg-slate-100 dark:bg-slate-700 text-slate-600 dark:text-slate-300 hover:bg-slate-200 transition">عاجل فقط</button>
+        </div>
+
+        <!-- أزرار الإجراءات (إضافة، تصدير، استيراد) -->
+        <div class="flex items-center gap-2 self-end md:self-auto">
+          <!-- زر التصدير كملف JSON -->
+          <button onclick="exportTasksJSON()" title="تصدير نسخة احتياطية من المهام" class="text-xs px-3 py-2 rounded-xl border border-slate-200 dark:border-slate-700 text-slate-700 dark:text-slate-300 hover:bg-slate-50 dark:hover:bg-slate-700 flex items-center gap-1.5 transition">
+            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"/></svg>
+            <span>تصدير</span>
+          </button>
+
+          <!-- زر الاستيراد -->
+          <label title="استيراد مهام من ملف JSON" class="text-xs px-3 py-2 rounded-xl border border-slate-200 dark:border-slate-700 text-slate-700 dark:text-slate-300 hover:bg-slate-50 dark:hover:bg-slate-700 flex items-center gap-1.5 cursor-pointer transition">
+            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-8l-4-4m0 0L8 8m4-4v12"/></svg>
+            <span>استيراد</span>
+            <input type="file" id="import-file-input" onchange="importTasksJSON(event)" accept=".json" class="hidden">
+          </label>
+
+          <!-- زر إضافة مهمة جديدة -->
+          <button onclick="openTaskModal()" class="text-xs px-4 py-2 rounded-xl bg-brand-600 hover:bg-brand-700 text-white font-bold flex items-center gap-1.5 shadow-sm transition">
+            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"/></svg>
+            <span>مهمة جديدة</span>
+          </button>
+        </div>
+
+      </div>
+
+      <!-- شبكة بطاقات المهام -->
+      <div id="tasks-container" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+        <!-- يتم توليد المهام هنا بواسطة JavaScript -->
+      </div>
+
+      <!-- حالة عدم وجود مهام -->
+      <div id="no-tasks" class="hidden text-center py-16 bg-white dark:bg-slate-800 rounded-2xl border border-slate-200 dark:border-slate-700 p-6">
+        <div class="w-14 h-14 rounded-full bg-slate-100 dark:bg-slate-700/60 text-slate-400 flex items-center justify-center mx-auto mb-3">
+          <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+        </div>
+        <h3 class="text-sm font-bold text-slate-800 dark:text-slate-200">لا توجد مهام مطابقة حالياً</h3>
+        <p class="text-xs text-slate-500 dark:text-slate-400 mt-1">يمكنك إضافة مهمة إدارية جديدة عبر زر "مهمة جديدة" أعلاه.</p>
+      </div>
+
+    </div>
+
+  </main>
+
+  <!-- نافذة مودال: إضافة / تعديل مهمة إدارية -->
+  <div id="task-modal" class="fixed inset-0 z-50 bg-slate-900/60 backdrop-blur-sm hidden flex items-center justify-center p-4">
+    <div class="bg-white dark:bg-slate-800 rounded-2xl border border-slate-200 dark:border-slate-700 shadow-2xl w-full max-w-lg overflow-hidden transform transition-all">
+      
+      <!-- رأس المودال -->
+      <div class="px-5 py-4 border-b border-slate-200 dark:border-slate-700 flex items-center justify-between bg-slate-50/70 dark:bg-slate-900/40">
+        <h3 id="modal-title" class="text-sm font-bold text-slate-900 dark:text-white flex items-center gap-2">
+          <svg class="w-5 h-5 text-brand-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z"/></svg>
+          إضافة مهمة إدارية جديدة
+        </h3>
+        <button onclick="closeTaskModal()" class="text-slate-400 hover:text-slate-600 dark:hover:text-slate-200 p-1 rounded-lg">
+          <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/></svg>
+        </button>
+      </div>
+
+      <!-- نموذج إدخال المهمة -->
+      <form id="task-form" onsubmit="handleSaveTask(event)" class="p-5 space-y-4 text-xs">
+        <input type="hidden" id="task-id">
+
+        <div>
+          <label class="block font-bold text-slate-700 dark:text-slate-300 mb-1">عنوان المهمة الإدارية *</label>
+          <input type="text" id="task-title" required placeholder="مثال: تدقيق كشوفات درجات امتحانات الإكمال" class="w-full px-3 py-2.5 bg-slate-50 dark:bg-slate-900 border border-slate-200 dark:border-slate-700 rounded-xl outline-none focus:ring-2 focus:ring-brand-500">
+        </div>
+
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+          <div>
+            <label class="block font-bold text-slate-700 dark:text-slate-300 mb-1">القسم المرتبط *</label>
+            <select id="task-dept" required class="w-full px-3 py-2.5 bg-slate-50 dark:bg-slate-900 border border-slate-200 dark:border-slate-700 rounded-xl outline-none focus:ring-2 focus:ring-brand-500">
+              <option value="الشؤون الإدارية">الشؤون الإدارية والموظفين</option>
+              <option value="الشؤون المالية">الشؤون المالية</option>
+              <option value="التخطيط والمشاريع">التخطيط والمشاريع</option>
+              <option value="الامتحانات والتقويم">الامتحانات والتقويم والشهادات</option>
+              <option value="الشؤون القانونية">الشؤون القانونية والمظالم</option>
+              <option value="الإدارة العامة والمتابعة">الإدارة العامة والمتابعة</option>
+            </select>
+          </div>
+
+          <div>
+            <label class="block font-bold text-slate-700 dark:text-slate-300 mb-1">درجة الأولوية *</label>
+            <select id="task-priority" required class="w-full px-3 py-2.5 bg-slate-50 dark:bg-slate-900 border border-slate-200 dark:border-slate-700 rounded-xl outline-none focus:ring-2 focus:ring-brand-500">
+              <option value="urgent">عاجل وهام جداً</option>
+              <option value="medium" selected>متوسط الأولوية</option>
+              <option value="normal">عادي / روتيني</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+          <div>
+            <label class="block font-bold text-slate-700 dark:text-slate-300 mb-1">موعد الاستحقاق (التاريخ والوقت) *</label>
+            <input type="datetime-local" id="task-due" required class="w-full px-3 py-2.5 bg-slate-50 dark:bg-slate-900 border border-slate-200 dark:border-slate-700 rounded-xl outline-none focus:ring-2 focus:ring-brand-500">
+          </div>
+          <div>
+            <label class="block font-bold text-slate-700 dark:text-slate-300 mb-1">حالة الإنجاز</label>
+            <select id="task-status" class="w-full px-3 py-2.5 bg-slate-50 dark:bg-slate-900 border border-slate-200 dark:border-slate-700 rounded-xl outline-none focus:ring-2 focus:ring-brand-500">
+              <option value="pending">قيد المتابعة والتنفيذ</option>
+              <option value="completed">مكتملة ومُنجزة</option>
+            </select>
+          </div>
+        </div>
+
+        <div>
+          <label class="block font-bold text-slate-700 dark:text-slate-300 mb-1">ملاحظات إجرائية أو توجيهات إضافية</label>
+          <textarea id="task-notes" rows="2" placeholder="أي تفاصيل خاصة بالمستندات أو المسؤول المباشر..." class="w-full px-3 py-2 bg-slate-50 dark:bg-slate-900 border border-slate-200 dark:border-slate-700 rounded-xl outline-none focus:ring-2 focus:ring-brand-500"></textarea>
+        </div>
+
+        <!-- أزرار الحفظ والإلغاء -->
+        <div class="pt-3 border-t border-slate-200 dark:border-slate-700 flex items-center justify-end gap-2">
+          <button type="button" onclick="closeTaskModal()" class="px-4 py-2 rounded-xl text-slate-600 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-700 transition">إلغاء</button>
+          <button type="submit" class="px-5 py-2 rounded-xl bg-brand-600 hover:bg-brand-700 text-white font-bold shadow-sm transition">حفظ المهمة</button>
+        </div>
+      </form>
+
+    </div>
+  </div>
+
+  <!-- حاوية التوست للإشعارات والتحفيز (Toast Notifications) -->
+  <div id="toast-container" class="fixed bottom-5 left-5 z-50 flex flex-col gap-2 max-w-sm w-full pointer-events-none"></div>
+
+  <!-- زر المساعد الذكي العائم للوصول السريع من أي مكان في المنصة -->
+  <div class="fixed bottom-5 right-5 z-40">
+    <button onclick="activateFloatingAssistant()" id="floating-ai-btn" title="فتح المساعد الذكي الفوري" class="group flex items-center gap-2.5 bg-gradient-to-r from-brand-700 via-brand-600 to-sky-600 hover:from-brand-800 hover:to-sky-700 text-white py-2.5 px-4 rounded-full shadow-xl shadow-brand-600/30 hover:shadow-brand-600/50 transform hover:-translate-y-0.5 transition-all duration-300">
+      <span class="relative flex h-3 w-3">
+        <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
+        <span class="relative inline-flex rounded-full h-3 w-3 bg-emerald-500"></span>
+      </span>
+      <span class="text-xs font-bold tracking-wide">المساعد الذكي والرد الآلي</span>
+      <div class="w-7 h-7 rounded-full bg-white/20 flex items-center justify-center">
+        <svg class="w-4 h-4 transform group-hover:scale-110 transition" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 10h.01M12 10h.01M16 10h.01M9 16H5a2 2 0 01-2-2V6a2 2 0 012-2h14a2 2 0 012 2v8a2 2 0 01-2 2h-5l-5 5v-5z"/></svg>
+      </div>
+    </button>
+  </div>
+
+  <!-- تذييل الصفحة الرسمي -->
+  <footer class="mt-auto border-t border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 py-4 text-center text-xs text-slate-500 dark:text-slate-400">
+    <div class="max-w-7xl mx-auto px-4 flex flex-col sm:flex-row items-center justify-between gap-2">
+      <p>منظومة الإدارة المدرسية وأتمتة الردود - مديرية التربية والتعليم © 2026</p>
+      <div class="flex items-center gap-4 text-[11px]">
+        <span>جاهزية النظام: 100% مستقر</span>
+        <span>•</span>
+        <span>قاعدة البيانات: محدثة وفق اللوائح الوزارية</span>
+      </div>
+    </div>
+  </footer>
+
+  <!-- ==================== منطق النظام البرمجي (JavaScript ES6) ==================== -->
+  <script>
+    /* ==========================================================
+       1. قاعدة البيانات المحلية للاستفسارات واللوائح الرسمية (FAQ Mock Data)
+       ========================================================== */
+    const FAQ_DATA = [
+      {
+        id: 'faq-1',
+        category: 'admin',
+        deptName: 'الشؤون الإدارية والموظفين',
+        question: 'ما هي شروط وإجراءات التقدم لحركة النقل الداخلي السنوية؟',
+        summary: 'تتم حركة النقل الداخلي سنوياً خلال شهري نيسان وأيار وفق معايير الأقدمية والاحتياج المدرسي.',
+        steps: [
+          'الدخول إلى البوابة الإلكترونية للموظفين خلال فترة فتح باب النقل المعلنة رسمياً.',
+          'تعبئة نموذج الرغبات (بحد أقصى 3 مدارس داخل المديرية).',
+          'اعتماد الطلب من مدير المدرسة الحالي إلكترونياً.',
+          'دراسة الطلبات في قسم الشؤون الإدارية والتخطيط بناءً على: (سنوات الخدمة، تقرير الكفاية السنوي، المؤهل، والبعد الجغرافي).',
+          'إعلان النتائج المعتمدة من مدير التربية قبل بدء العام الدراسي الجديد بوقت كافٍ.'
+        ],
+        documents: ['طلب النقل الإلكتروني المعتمد', 'كشف براءة ذمة من المدرسة الحالية بعد صدور القرار'],
+        portalLinkText: 'بوابة النقل الداخلي بالمديرية'
+      },
+      {
+        id: 'faq-2',
+        category: 'admin',
+        deptName: 'الشؤون الإدارية والموظفين',
+        question: 'كيف يتم احتساب وتوثيق الإجازة المرضية الطارئة واللجان الطبية؟',
+        summary: 'الإجازة المرضية حق مكفول وفق قانون الخدمة المدنية بشرط توثيقها رسمياً خلال 48 ساعة.',
+        steps: [
+          'إبلاغ مدير المدرسة أو رئيس القسم المباشر في اليوم الأول للمرض.',
+          'الحصول على تقرير طبي رسمي من مستشفى حكومي أو عيادة صحية معتمدة.',
+          'إذا كانت الإجازة 3 أيام فما دون، يكتفى بتقرير الطبيب المعتمد وتصديق المدرسة.',
+          'إذا تجاوزت المدة 3 أيام متصلة، يجب تحويل الموظف إلى "اللجنة الطبية اللوائية" لاعتمادها رسمياً.',
+          'رفع التقرير لقسم الشؤون الإدارية ليتم إدراجه في السجل الزمني للموظف.'
+        ],
+        documents: ['التقرير الطبي الأصلي', 'نموذج الإحالة للجنة الطبية اللوائية (إن لزم)'],
+        portalLinkText: 'نماذج قسم الإجازات والتقارير الطبية'
+      },
+      {
+        id: 'faq-3',
+        category: 'admin',
+        deptName: 'الشؤون الإدارية والموظفين',
+        question: 'ما هي إجراءات التقدم لطلب انتداب أو إعارة لمؤسسة حكومية أخرى؟',
+        summary: 'تخضع الإعارة والانتداب لموافقة الوزير والمديرية بناءً على مصلحة العمل وتوفر البديل.',
+        steps: [
+          'تقديم كتاب رسمي موجه لمدير عام التربية والتعليم مبين فيه الجهة المستعيرة.',
+          'يشترط قضاء سنتين خدمة فعلية مثبتة في الملاك التعليمي كحد أدنى.',
+          'بيان رأي القسم المختص (التعليم العام أو الشؤون الإدارية) حول توفر الشاغر البديل.',
+          'رفع المعاملة للوزارة لاعتمادها واستصدار قرار وزاري رسمي بالإعارة أو الانتداب.'
+        ],
+        documents: ['طلب خطي مسبّب', 'كتاب طلب رسمي من الجهة المستقبِلة', 'تقرير الكفاية للعامين الأخيرين'],
+        portalLinkText: 'شعبة التعيينات والتعاقد'
+      },
+      {
+        id: 'faq-4',
+        category: 'finance',
+        deptName: 'الشؤون المالية',
+        question: 'ما هي آلية صرف بدل المواصلات الثابت والمتغير للمعلمين والموظفين؟',
+        summary: 'يصرف بدل المواصلات استناداً لمقر السكن الثابت المسجل في الهوية ومسافة المدرسة.',
+        steps: [
+          'تعبئة نموذج "خط السير" المعتمد لدى قسم المالية بداية كل عام دراسي.',
+          'إرفاق إثبات السكن الفعلي (فاتورة خدمات أو إفادة مجلس محلي) وصورة الهوية الشخصية.',
+          'تدقيق المسافة بين بلد السكن ومقر العمل استناداً لجدول المسافات الرسمي المعتمد من الوزارة.',
+          'في حال الانتقال لمدرسة أخرى خلال العام، يقدم الموظف طلب تعديل خط سير فوري.'
+        ],
+        documents: ['نموذج خط السير موقع من مدير المدرسة', 'صورة الهوية موضحاً بها عنوان السكن المعتمد'],
+        portalLinkText: 'شعبة الرواتب والبدلات المالية'
+      },
+      {
+        id: 'faq-5',
+        category: 'finance',
+        deptName: 'الشؤون المالية',
+        question: 'متى وكيف تصرف مكافآت امتحانات الثانوية العامة (مراقبة وتصحيح وإدارة لجان)؟',
+        summary: 'تُرفع كشوفات المستحقات بعد انتهاء الجلسات مباشرة ويتم التدقيق عبر المراقب المالي.',
+        steps: [
+          'يقوم رئيس القاعة أو رئيس مركز التصحيح برفع كشف الحضور والانصراف الفعلي لجميع الأعضاء.',
+          'يدقق قسم الامتحانات مع قسم المالية استحقاق كل مشارك وفق عدد الجلسات أو الرزم المصححة.',
+          'تعتمد الموازنة من الإدارة العامة للشؤون المالية بالوزارة والمالية المركزية.',
+          'تودع المستحقات مباشرة في الحسابات البنكية للمستفيدين مع إشعار رسمي عبر الهاتف.'
+        ],
+        documents: ['كشف الدوام الموقع من رئيس اللجنة', 'رقم الحساب البنكي (IBAN) المعتمد للموظف'],
+        portalLinkText: 'قسم الحسابات والمكافآت'
+      },
+      {
+        id: 'faq-6',
+        category: 'planning',
+        deptName: 'التخطيط والمشاريع المدرسية',
+        question: 'ما هي معايير تشكيلات الشعب المدرسية ومعالجة الكثافة الصفية المرتفعة؟',
+        summary: 'الحد الأقصى المعياري للكثافة الصفية هو 40 طالباً، وأي تجاوز يتطلب تدخلاً ميدانياً.',
+        steps: [
+          'يقوم مدير المدرسة بإدخال بيانات الإحصاء الأسبوعي والشهري على منظومة التعليم الإلكترونية.',
+          'إذا تجاوز عدد طلبة الصف الواحد 42 طالباً، يتم تقديم طلب رسمي لشعبة التخطيط لفتح شعبة إضافية.',
+          'يقوم مهندس وفريق التخطيط بزيارة استطلاعية للتأكد من توفر الغرفة الصفية المطابقة للمواصفات.',
+          'يتم التنسيق مع الشؤون الإدارية لتوفير المعلم الشاغر بنظام التثبيت أو العقود المؤقتة.'
+        ],
+        documents: ['تقرير الكثافة الصفية مستخرج من المنظومة', 'مخطط الفراغات والمرافق المدرسية'],
+        portalLinkText: 'دائرة التخطيط والمشاريع المدرسية'
+      },
+      {
+        id: 'faq-7',
+        category: 'exams',
+        deptName: 'القياس والتقويم والامتحانات',
+        question: 'ما هي متطلبات تصديق شهادة الثانوية العامة واستخراج بدل فاقد رسمي؟',
+        summary: 'خدمة يومية فورية تتم عبر قسم الامتحانات للمواطنين والطلبة الخريجين.',
+        steps: [
+          'إحضار الشهادة الأصلية المراد تصديقها أو كشف الدرجات المعتمد.',
+          'في حال طلب بدل فاقد: يجب إحضار إفادة فقدان رسمية من الشرطة أو إعلان في جريدة محلية.',
+          'تسديد الرسوم المالية المقررة من خلال طوابع الإيرادات أو وصل القبض المالي بالمديرية.',
+          'تختم الشهادة بختم النسر الرسمي المعتمد من رئيس قسم الامتحانات ومدير التربية.',
+          'يمكن التصديق اللاحق لدى مكتب وزارة الخارجية إذا كانت الشهادة لغايات السفر والدراسة بالخارج.'
+        ],
+        documents: ['صورة الهوية الشخصية أو جواز السفر', 'الشهادة الأصلية أو كشف الدرجات القديم', 'طابع مالي قانوني'],
+        portalLinkText: 'نافذة خدمات الجمهور وقسم الامتحانات'
+      },
+      {
+        id: 'faq-8',
+        category: 'legal',
+        deptName: 'الشؤون القانونية والمظالم',
+        question: 'كيف يتم تقديم تظلم إداري رسمي بخصوص تقييم الأداء السنوي (تقرير الكفاية)؟',
+        summary: 'يحق للموظف الاعتراض على تقرير الكفاية خلال مدة أقصاها 20 يوماً من تاريخ تبليغه به.',
+        steps: [
+          'استلام الإشعار الرسمي بدرجة تقرير الأداء السنوي والتوقيع بالعلم.',
+          'كتابة استدعاء تظلم مسبب يوضح أوجه القصور أو الإجحاف في التقييم مع إرفاق شواهد الإنجاز.',
+          'تسجيل التظلم في ديوان المديرية والحصول على رقم وارد وتاريخ رسمي.',
+          'تحال المعاملة إلى "لجنة التظلمات المركزية" وتتضمن مستشاراً قانونياً وممثلاً عن الإشراف.',
+          'تبت اللجنة في التظلم خلال 30 يوماً بقرار قطعي مسبّب إما بالتعديل أو التثبيت.'
+        ],
+        documents: ['نموذج التظلم الرسمي المعتمد', 'نسخة عن تقييم الأداء موضوع الشكوى', 'ملف الإنجاز والشواهد'],
+        portalLinkText: 'مكتب الشؤون القانونية والتحقيق'
+      }
+    ];
+
+    /* اقتباسات تحفيزية إدارية وتربوية للتلميح اليومي */
+    const TIPS_LIST = [
+      'التخطيط المؤسسي المحكم يقلل أزمات التنفيذ الميدانية بنسبة تفوق 80%.',
+      'التوثيق الإداري الدقيق ليس إجراءً روتينياً، بل صمام أمان لحقوق الموظف والمؤسسة التعليمية.',
+      'القيادة التربوية الفعالة تبدأ من حسن الاستماع للميدان وتيسير الإجراءات للمراجعين.',
+      'سرعة ودقة الرد على استفسارات الكوادر التعليمية ترفع الرضا الوظيفي وتدعم استقرار المدارس.',
+      'إدارة الوقت والأولويات في العمل الإداري تحول الضغوط الموسمية إلى إنجازات منتظمة.',
+      'الوضوح في التعاميم والقرارات الإدارية يمنع 90% من سوء الفهم والنزاعات الإدارية.'
+    ];
+
+    /* عبارات تحفيزية عند إتمام مهمة */
+    const MOTIVATIONAL_PHRASES = [
+      'إنجاز متقن! التزامك بالموعد يعزز جودة العمل المؤسسي.',
+      'عمل رائع! جهودك المستمرة هي الركيزة الأساسية لنجاح المديرية.',
+      'خطوة ممتازة نحو بيئة تعليمية أكثر تنظيماً وكفاءة!',
+      'أحسنت! إتقان العمل وأداؤه في وقته يجسد المعنى الحقيقي للمسؤولية.',
+      'مهمة مكتملة بنجاح! التميز الإداري صناعة يومية تبنيها بخطواتك.'
+    ];
+
+    /* المهام الأولية الافتراضية في حال كانت الذاكرة فارغة */
+    const INITIAL_TASKS = [
+      {
+        id: 'task-seed-1',
+        title: 'تدقيق ومطابقة كشوفات درجات امتحانات نهاية الفصل الأول',
+        department: 'الامتحانات والتقويم',
+        priority: 'urgent',
+        dueDate: new Date(Date.now() + 24 * 3600 * 1000).toISOString().slice(0, 16),
+        status: 'pending',
+        notes: 'مراجعة المدارس ذات الكثافة العالية أولاً واعتماد المحاضر الرسمية.'
+      },
+      {
+        id: 'task-seed-2',
+        title: 'رفع التقرير الإحصائي السنوي لتشكيلات الشعب المدرسية للوزارة',
+        department: 'التخطيط والمشاريع',
+        priority: 'medium',
+        dueDate: new Date(Date.now() + 3 * 24 * 3600 * 1000).toISOString().slice(0, 16),
+        status: 'pending',
+        notes: 'التأكد من رصد معلمات البدلاء والإجازات الطويلة.'
+      },
+      {
+        id: 'task-seed-3',
+        title: 'اعتماد ملفات طلبات النقل الداخلي للمعلمين وإحالتها للجنة',
+        department: 'الشؤون الإدارية',
+        priority: 'normal',
+        dueDate: new Date(Date.now() - 5 * 3600 * 1000).toISOString().slice(0, 16),
+        status: 'completed',
+        notes: 'تم فحص جميع طلبات النقل والتأكد من مطابقة شروط الخدمة.'
+      }
+    ];
+
+    /* ==========================================================
+       2. إدارة الحالة العامة للنظام (State Management)
+       ========================================================== */
+    let tasks = [];
+    let favoriteFaqIds = [];
+    let currentCategory = 'all';
+    let currentSearchTerm = '';
+    let showFavoritesOnly = false;
+    let currentTaskFilter = 'all';
+
+    /* ==========================================================
+       3. تشغيل النظام ومزامنة التخزين المحلي (Init & Lifecycle)
+       ========================================================== */
+    window.addEventListener('DOMContentLoaded', () => {
+      initTheme();
+      loadRandomTip();
+      loadStoredData();
+      renderFaqList();
+      renderTasks();
+      updateHeaderCounts();
+      setupAudioSynth();
+    });
+
+    function loadStoredData() {
+      // استرجاع المهام
+      const savedTasks = localStorage.getItem('edu_directorate_tasks');
+      if (savedTasks) {
+        try {
+          tasks = JSON.parse(savedTasks);
+        } catch(e) {
+          tasks = [...INITIAL_TASKS];
+        }
+      } else {
+        tasks = [...INITIAL_TASKS];
+        saveTasksToStorage();
+      }
+
+      // استرجاع الأسئلة المفضلة
+      const savedFavs = localStorage.getItem('edu_directorate_favs');
+      if (savedFavs) {
+        try {
+          favoriteFaqIds = JSON.parse(savedFavs);
+        } catch(e) {
+          favoriteFaqIds = [];
+        }
+      }
+    }
+
+    function saveTasksToStorage() {
+      localStorage.setItem('edu_directorate_tasks', JSON.stringify(tasks));
+      renderTasks();
+      updateHeaderCounts();
+    }
+
+    function saveFavsToStorage() {
+      localStorage.setItem('edu_directorate_favs', JSON.stringify(favoriteFaqIds));
+      renderFaqList();
+    }
+
+    /* ==========================================================
+       4. المظهر والنظام البصري (Theme & Tips)
+       ========================================================== */
+    function initTheme() {
+      const savedTheme = localStorage.getItem('edu_directorate_theme');
+      const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+      if (savedTheme === 'dark' || (!savedTheme && prefersDark)) {
+        document.documentElement.classList.add('dark');
+        updateThemeIcons(true);
+      } else {
+        document.documentElement.classList.remove('dark');
+        updateThemeIcons(false);
+      }
+    }
+
+    function toggleTheme() {
+      const isDark = document.documentElement.classList.toggle('dark');
+      localStorage.setItem('edu_directorate_theme', isDark ? 'dark' : 'light');
+      updateThemeIcons(isDark);
+      showToast(isDark ? 'تم تفعيل الوضع الليلي' : 'تم تفعيل الوضع النهاري', 'info');
+    }
+
+    function updateThemeIcons(isDark) {
+      const lightIcon = document.getElementById('theme-icon-light');
+      const darkIcon = document.getElementById('theme-icon-dark');
+      if (isDark) {
+        lightIcon.classList.remove('hidden');
+        darkIcon.classList.add('hidden');
+      } else {
+        lightIcon.classList.add('hidden');
+        darkIcon.classList.remove('hidden');
+      }
+    }
+
+    function loadRandomTip() {
+      const randomIndex = Math.floor(Math.random() * TIPS_LIST.length);
+      document.getElementById('tip-text').innerText = TIPS_LIST[randomIndex];
+    }
+
+    function switchMainTab(tabId) {
+      const faqTab = document.getElementById('faq-tab');
+      const tasksTab = document.getElementById('tasks-tab');
+      const navFaq = document.getElementById('nav-btn-faq');
+      const navTasks = document.getElementById('nav-btn-tasks');
+      const mobFaq = document.getElementById('mobile-nav-faq');
+      const mobTasks = document.getElementById('mobile-nav-tasks');
+
+      if (tabId === 'faq-tab') {
+        faqTab.classList.remove('hidden');
+        tasksTab.classList.add('hidden');
+        
+        // Active Styles Nav
+        navFaq.className = "flex items-center gap-2 px-3 py-1.5 rounded-lg text-xs font-bold transition-all bg-white dark:bg-slate-800 text-brand-600 dark:text-sky-400 shadow-sm";
+        navTasks.className = "flex items-center gap-2 px-3 py-1.5 rounded-lg text-xs font-bold transition-all text-slate-600 dark:text-slate-300 hover:text-slate-900 dark:hover:text-white";
+        
+        mobFaq.className = "flex-1 py-1.5 text-center text-xs font-bold rounded-lg bg-brand-50 dark:bg-brand-900/40 text-brand-600 dark:text-brand-300";
+        mobTasks.className = "flex-1 py-1.5 text-center text-xs font-bold rounded-lg text-slate-600 dark:text-slate-400";
+      } else {
+        faqTab.classList.add('hidden');
+        tasksTab.classList.remove('hidden');
+
+        // Active Styles Nav
+        navTasks.className = "flex items-center gap-2 px-3 py-1.5 rounded-lg text-xs font-bold transition-all bg-white dark:bg-slate-800 text-brand-600 dark:text-sky-400 shadow-sm";
+        navFaq.className = "flex items-center gap-2 px-3 py-1.5 rounded-lg text-xs font-bold transition-all text-slate-600 dark:text-slate-300 hover:text-slate-900 dark:hover:text-white";
+
+        mobTasks.className = "flex-1 py-1.5 text-center text-xs font-bold rounded-lg bg-brand-50 dark:bg-brand-900/40 text-brand-600 dark:text-brand-300";
+        mobFaq.className = "flex-1 py-1.5 text-center text-xs font-bold rounded-lg text-slate-600 dark:text-slate-400";
+      }
+    }
+
+    /* ==========================================================
+       5. محرك البحث الذكي والأكورديون (FAQ Engine & Accordion)
+       ========================================================== */
+    function filterCategory(cat) {
+      currentCategory = cat;
+      document.querySelectorAll('.cat-pill').forEach(btn => {
+        if (btn.dataset.cat === cat) {
+          btn.className = "cat-pill active px-3 py-1.5 rounded-lg font-semibold bg-brand-600 text-white shrink-0 shadow-sm transition";
+        } else {
+          btn.className = "cat-pill px-3 py-1.5 rounded-lg font-semibold bg-slate-100 dark:bg-slate-700 text-slate-600 dark:text-slate-300 hover:bg-slate-200 dark:hover:bg-slate-600 shrink-0 transition";
+        }
+      });
+      renderFaqList();
+    }
+
+    function handleFaqSearch() {
+      const input = document.getElementById('faq-search-input');
+      const clearBtn = document.getElementById('clear-search-btn');
+      currentSearchTerm = input.value.trim().toLowerCase();
+
+      if (currentSearchTerm) {
+        clearBtn.classList.remove('hidden');
+      } else {
+        clearBtn.classList.add('hidden');
+      }
+      renderFaqList();
+    }
+
+    function clearSearch() {
+      const input = document.getElementById('faq-search-input');
+      input.value = '';
+      currentSearchTerm = '';
+      document.getElementById('clear-search-btn').classList.add('hidden');
+      renderFaqList();
+      input.focus();
+    }
+
+    function toggleFavoritesOnly() {
+      showFavoritesOnly = !showFavoritesOnly;
+      const btn = document.getElementById('toggle-fav-filter');
+      const label = document.getElementById('fav-filter-label');
+      
+      if (showFavoritesOnly) {
+        btn.classList.add('bg-amber-50', 'dark:bg-amber-900/30', 'border-amber-300', 'dark:border-amber-700');
+        label.innerText = 'عرض كل الإجراءات';
+      } else {
+        btn.classList.remove('bg-amber-50', 'dark:bg-amber-900/30', 'border-amber-300', 'dark:border-amber-700');
+        label.innerText = 'المفضلة فقط';
+      }
+      renderFaqList();
+    }
+
+    function toggleFavorite(id, event) {
+      event.stopPropagation();
+      const index = favoriteFaqIds.indexOf(id);
+      if (index > -1) {
+        favoriteFaqIds.splice(index, 1);
+        showToast('تمت الإزالة من المفضلة', 'info');
+      } else {
+        favoriteFaqIds.push(id);
+        showToast('تمت الإضافة إلى المفضلة الإدارية ⭐', 'success');
+      }
+      saveFavsToStorage();
+    }
+
+    function renderFaqList() {
+      const container = document.getElementById('faq-accordion-container');
+      const noResults = document.getElementById('no-results');
+      const countLabel = document.getElementById('results-count');
+
+      // تصفية العناصر
+      const filtered = FAQ_DATA.filter(item => {
+        // تصفية القسم
+        if (currentCategory !== 'all' && item.category !== currentCategory) return false;
+        // تصفية المفضلة
+        if (showFavoritesOnly && !favoriteFaqIds.includes(item.id)) return false;
+        // تصفية الكلمات المفتاحية
+        if (currentSearchTerm) {
+          const matchQ = item.question.toLowerCase().includes(currentSearchTerm);
+          const matchSum = item.summary.toLowerCase().includes(currentSearchTerm);
+          const matchSteps = item.steps.some(s => s.toLowerCase().includes(currentSearchTerm));
+          const matchDocs = item.documents.some(d => d.toLowerCase().includes(currentSearchTerm));
+          return matchQ || matchSum || matchSteps || matchDocs;
+        }
+        return true;
+      });
+
+      countLabel.innerText = `${filtered.length} استفسار`;
+
+      if (filtered.length === 0) {
+        container.innerHTML = '';
+        noResults.classList.remove('hidden');
+        return;
+      }
+
+      noResults.classList.add('hidden');
+      container.innerHTML = filtered.map(item => {
+        const isFav = favoriteFaqIds.includes(item.id);
+        const highlightedQ = highlightText(item.question, currentSearchTerm);
+        const highlightedSummary = highlightText(item.summary, currentSearchTerm);
+
+        return `
+          <div class="faq-item bg-white dark:bg-slate-800 rounded-xl border border-slate-200 dark:border-slate-700/80 shadow-sm overflow-hidden transition-all duration-200" id="${item.id}">
+            <!-- رأس السؤال -->
+            <button type="button" onclick="toggleAccordion('${item.id}')" class="w-full text-right p-3.5 sm:p-4 flex items-start justify-between gap-3 hover:bg-slate-50/70 dark:hover:bg-slate-750 transition">
+              <div class="flex-1">
+                <div class="flex items-center gap-2 mb-1.5 flex-wrap">
+                  <span class="text-[10px] font-bold px-2 py-0.5 rounded-md bg-brand-50 dark:bg-brand-900/40 text-brand-700 dark:text-sky-300 border border-brand-200 dark:border-brand-800">${item.deptName}</span>
+                </div>
+                <h3 class="text-xs sm:text-sm font-bold text-slate-800 dark:text-slate-100 leading-snug">${highlightedQ}</h3>
+                <p class="text-[11px] text-slate-500 dark:text-slate-400 mt-1 line-clamp-1">${highlightedSummary}</p>
+              </div>
+
+              <div class="flex items-center gap-1.5 shrink-0 pt-0.5">
+                <!-- زر التفضيل -->
+                <span onclick="toggleFavorite('${item.id}', event)" title="إضافة للمفضلة" class="p-1 rounded-lg text-slate-400 hover:text-amber-500 transition cursor-pointer">
+                  <svg class="w-4 h-4 ${isFav ? 'text-amber-500 fill-amber-500' : ''}" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11.049 2.927c.3-.921 1.603-.921 1.902 0l1.519 4.674a1 1 0 00.95.69h4.915c.969 0 1.371 1.24.588 1.81l-3.976 2.888a1 1 0 00-.363 1.118l1.518 4.674c.3.922-.755 1.688-1.538 1.118l-3.976-2.888a1 1 0 00-1.176 0l-3.976 2.888c-.783.57-1.838-.197-1.538-1.118l1.518-4.674a1 1 0 00-.363-1.118l-3.976-2.888c-.784-.57-.38-1.81.588-1.81h4.914a1 1 0 00.951-.69l1.519-4.674z"/></svg>
+                </span>
+                
+                <!-- سهم الفتح والإغلاق -->
+                <span class="accordion-arrow p-1 text-slate-400 transform transition-transform duration-200">
+                  <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/></svg>
+                </span>
+              </div>
+            </button>
+
+            <!-- المحتوى الإجرائي التفصيلي (الأكورديون) -->
+            <div class="accordion-body hidden px-4 pb-4 pt-1 border-t border-slate-100 dark:border-slate-700/60 bg-slate-50/40 dark:bg-slate-900/20 text-xs space-y-3">
+              <!-- الخطوات الإدارية -->
+              <div>
+                <h4 class="font-bold text-slate-700 dark:text-slate-300 flex items-center gap-1.5 mb-2 text-[11px]">
+                  <svg class="w-3.5 h-3.5 text-brand-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/></svg>
+                  مسار المعاملة خطوة بخطوة:
+                </h4>
+                <ol class="space-y-1.5 pr-4 border-r-2 border-brand-500/30 text-slate-600 dark:text-slate-300">
+                  ${item.steps.map((step, idx) => `
+                    <li class="relative">
+                      <span class="font-semibold text-brand-600 dark:text-sky-400 ml-1">${idx + 1}.</span>
+                      ${highlightText(step, currentSearchTerm)}
+                    </li>
+                  `).join('')}
+                </ol>
+              </div>
+
+              <!-- المستندات المطلوبة -->
+              <div>
+                <h4 class="font-bold text-slate-700 dark:text-slate-300 flex items-center gap-1.5 mb-1 text-[11px]">
+                  <svg class="w-3.5 h-3.5 text-amber-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/></svg>
+                  الوثائق والمرفقات اللازمة:
+                </h4>
+                <div class="flex flex-wrap gap-1.5 pr-2">
+                  ${item.documents.map(doc => `
+                    <span class="px-2 py-0.5 rounded-md bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 text-slate-600 dark:text-slate-300 text-[10px]">
+                      📄 ${highlightText(doc, currentSearchTerm)}
+                    </span>
+                  `).join('')}
+                </div>
+              </div>
+
+              <!-- رابط الإحالة وإجراء سريع -->
+              <div class="pt-2 border-t border-slate-200/60 dark:border-slate-700/60 flex items-center justify-between text-[11px]">
+                <span class="text-slate-500 dark:text-slate-400 flex items-center gap-1">
+                  <span>القسم المتابع:</span>
+                  <strong class="text-slate-700 dark:text-slate-200">${item.portalLinkText}</strong>
+                </span>
+                <button onclick="copyProcedureText('${item.id}')" class="text-brand-600 dark:text-sky-400 hover:underline flex items-center gap-1">
+                  <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 5H6a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2v-1M8 5a2 2 0 002 2h2a2 2 0 002-2M8 5a2 2 0 012-2h2a2 2 0 012 2m0 0h2a2 2 0 012 2v3m2 4H10m0 0l3-3m-3 3l3 3"/></svg>
+                  نسخ الإجراء
+                </button>
+              </div>
+
+            </div>
+          </div>
+        `;
+      }).join('');
+    }
+
+    function toggleAccordion(id) {
+      const itemEl = document.getElementById(id);
+      if (!itemEl) return;
+      const body = itemEl.querySelector('.accordion-body');
+      const arrow = itemEl.querySelector('.accordion-arrow');
+
+      const isClosed = body.classList.contains('hidden');
+
+      // إغلاق باقي الأكورديونات المفتوحة للحفاظ على تنظيم الصفحة
+      document.querySelectorAll('.accordion-body').forEach(b => b.classList.add('hidden'));
+      document.querySelectorAll('.accordion-arrow').forEach(a => a.classList.remove('rotate-180'));
+
+      if (isClosed) {
+        body.classList.remove('hidden');
+        arrow.classList.add('rotate-180');
+      }
+    }
+
+    function highlightText(text, keyword) {
+      if (!keyword) return text;
+      const regex = new RegExp(`(${escapeRegExp(keyword)})`, 'gi');
+      return text.replace(regex, '<mark class="highlight">$1</mark>');
+    }
+
+    function escapeRegExp(string) {
+      return string.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+    }
+
+    function copyProcedureText(faqId) {
+      const item = FAQ_DATA.find(q => q.id === faqId);
+      if (!item) return;
+
+      const fullText = `*استفسار مديرية التربية والتعليم:* ${item.question}\n*القسم المختص:* ${item.deptName}\n\n*الخطوات المعتمدة:*\n${item.steps.map((s, i) => `${i+1}. ${s}`).join('\n')}\n\n*المستندات المطلوبة:*\n${item.documents.map(d => `- ${d}`).join('\n')}`;
+
+      // استخدام document.execCommand للتوافق التام داخل الإطارات
+      const tempTextArea = document.createElement('textarea');
+      tempTextArea.value = fullText;
+      document.body.appendChild(tempTextArea);
+      tempTextArea.select();
+      try {
+        document.execCommand('copy');
+        showToast('تم نسخ تفاصيل الإجراء للحافظة بنجاح 📋', 'success');
+      } catch (err) {
+        showToast('تعذر النسخ التلقائي', 'error');
+      }
+      document.body.removeChild(tempTextArea);
+    }
+
+    /* ==========================================================
+       6. المساعد الذكي والمحادثة الآلية (Chatbot Simulation)
+       ========================================================== */
+    /* قاعدة المعرفة التوسعية للاستفسارات الإدارية السريعة والذكية */
+    const EXTENDED_INTENTS = [
+      {
+        keywords: ['نصاب', 'حصص', 'نصاب المعلم', 'كم حصة', 'الحصص الأسبوعية'],
+        department: 'الشؤون الإدارية والموظفين',
+        title: 'نصاب الحصص الأسبوعي المعتمد للمعلمين',
+        reply: 'الحد الأقصى لنصاب المعلم في المدارس الأساسية هو 24 حصة صفية أسبوعياً، وفي المدارس الثانوية من 20 إلى 22 حصة. يُخفض النصاب بمقدار حصتين إلى أربع حصص لمنسقي المباحث، ورواد النشاط، والمعلمين ذوي الأعمار فوق 55 عاماً بناءً على توفر الشواغر.',
+        actionSteps: ['مراجعة جدول التوزيع الأسبوعي مع مدير المدرسة', 'التأكد من عدم تجاوز الحد الأقصى للمناوبة والإشراف']
+      },
+      {
+        keywords: ['أمومة', 'وضع', 'ولادة', 'رضاعة', 'ساعة رضاعة', 'حامل'],
+        department: 'الشؤون الإدارية والموظفين',
+        title: 'إجازة الأمومة وساعة الرضاعة الرسمية',
+        reply: 'تستحق الموظفة إجازة أمومة براتب كامل لمدة 10 أسابيع (70 يوماً تقويمياً) متصلة قبل الوضع وبعده بموجب تقرير طبي. كما تمنح ساعة رضاعة يومية مدفوعة الأجر تبدأ بعد انتهاء إجازة الأمومة وتستمر لمدة عام كامل من تاريخ ميلاد الطفل.',
+        actionSteps: ['تقديم شهادة الميلاد الرسمية للمدرسة', 'تحديد موعد ساعة الرضاعة بالتنسيق مع إدارة المدرسة']
+      },
+      {
+        keywords: ['تقاعد', 'مبكر', 'بلوغ السن', 'مكافأة نهاية الخدمة', 'المعاش'],
+        department: 'الشؤون الإدارية والمالية',
+        title: 'شروط التقاعد المبكر وبلوغ السن القانونية',
+        reply: 'يجوز التقاعد المبكر للموظف الخاضع لقانون التقاعد العام بعد قضاء 20 عاماً خدمة فعلية مقبولة للتقاعد لمن بلغ سن الـ 50 عاماً، أو بعد 25 عاماً دون اشتراط السن. التقاعد الوجوبي يكون عند إتمام 60 عاماً.',
+        actionSteps: ['طلب بيان مدد الخدمة من قسم الرواتب', 'تعبئة نموذج الإحالة للتقاعد بديوان المديرية']
+      },
+      {
+        keywords: ['تظلم', 'تقرير كفاية', 'تقييم أداء', 'علامة سنوية', 'اعتراض'],
+        department: 'الشؤون القانونية والمظالم',
+        title: 'آلية التظلم من تقرير تقييم الأداء السنوي',
+        reply: 'يحق للموظف التظلم خطياً من تقرير تقييم الأداء السنوي خلال 20 يوماً من تاريخ تبليغه الرسمي به. يُرفع التظلم للجنة التظلمات المركزية بالمديرية وتبت فيه خلال 30 يوماً إما بالتعديل أو التأييد المسبب.',
+        actionSteps: ['إيداع التظلم خطياً بديوان المديرية', 'إرفاق شواهد وملف إنجاز الأداء للمعلم']
+      },
+      {
+        keywords: ['سلفة', 'قرض', 'سلفة مالية', 'صندوق التكافل', 'سلفة زواج'],
+        department: 'الشؤون المالية',
+        title: 'شروط صرف السلف المالية لموظفي التعليم',
+        reply: 'تُصرف السلف الطارئة (للعلاج أو الزواج أو الظروف القاهرة) من صندوق المديرية أو التكافل الاجتماعي بحد أقصى يعادل راتب شهرين إلى ثلاثة أشهر أساسي، وتُسدد بأقساط ميسرة لا تتجاوز ربع الراتب الصافي شهرياً.',
+        actionSteps: ['إحضار نموذج طلب سلفة موقع من الشؤون المالية', 'كفالة موظف مثبت ومصادقة البنك']
+      },
+      {
+        keywords: ['اضطرارية', 'إجازة اضطرارية', 'طارئة', 'ظرف طارئ'],
+        department: 'الشؤون الإدارية',
+        title: 'لوائح الإجازة الاضطرارية للموظفين',
+        reply: 'تمنح الإجازة الاضطرارية لمدة لا تتجاوز 7 أيام خلال العام الدراسي لأسباب قاهرة لا تمكن الموظف من إخطار إدارته مسبقاً، بشرط ألا تزيد عن يومين متتاليين في المرة الواحدة.',
+        actionSteps: ['إبلاغ الإدارة خلال 24 ساعة من الانقطاع', 'تعبئة نموذج الإجازة فور العودة للعمل']
+      }
+    ];
+
+    /* مصفوفة التعرّف على أوامر المهام الذكية */
+    function checkSmartTaskCommand(query) {
+      const q = query.trim();
+      const triggerRegex = /^(?:أضف\s*مهمة|اضف\s*مهمة|سجل\s*مهمة|إنشاء\s*مهمة|انشئ\s*مهمة|مهمة\s*جديدة|مهمة\s*:|تذكير\s*:)\s*(.*)/i;
+      const match = q.match(triggerRegex);
+
+      if (match && match[1]) {
+        const taskTitle = match[1].trim();
+        if (taskTitle.length > 2) {
+          // إنشاء مهمة تلقائياً في جدول المهام
+          const tomorrow = new Date(Date.now() + 24 * 3600 * 1000).toISOString().slice(0, 16);
+          const newTask = {
+            id: 'task-' + Date.now(),
+            title: taskTitle,
+            department: 'الإدارة العامة والمتابعة',
+            priority: 'urgent',
+            dueDate: tomorrow,
+            status: 'pending',
+            notes: 'أمر مجدول تلقائياً بواسطة المساعد الإداري الذكي عبر المحادثة.'
+          };
+
+          tasks.unshift(newTask);
+          saveTasksToStorage();
+          playSyntheticChime(true);
+
+          return `
+            <div class="space-y-2">
+              <div class="flex items-center gap-1.5 text-emerald-600 dark:text-emerald-400 font-bold">
+                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg>
+                <span>تم إدراج المهمة تلقائياً في جدول أعمالك!</span>
+              </div>
+              <div class="p-2.5 bg-emerald-50 dark:bg-emerald-950/40 rounded-xl border border-emerald-200 dark:border-emerald-800 text-slate-800 dark:text-slate-200">
+                <p class="font-bold text-[11px]">📋 ${escapeHtml(taskTitle)}</p>
+                <div class="flex items-center gap-2 mt-1 text-[10px] text-slate-500 dark:text-slate-400">
+                  <span>الأولوية: عاجل جداً</span>
+                  <span>•</span>
+                  <span>الاستحقاق: خلال 24 ساعة</span>
+                </div>
+              </div>
+              <div class="pt-1">
+                <button onclick="switchMainTab('tasks-tab')" class="text-brand-600 dark:text-sky-400 font-bold hover:underline flex items-center gap-1 text-[11px]">
+                  <span>الانتقال لجدول المهام لمعاينتها</span>
+                  <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"/></svg>
+                </button>
+              </div>
+            </div>
+          `;
+        }
+      }
+      return null;
+    }
+
+    function sendQuickPrompt(promptText) {
+      document.getElementById('chat-input').value = promptText;
+      handleChatSubmit();
+    }
+
+    function handleChatSubmit(event) {
+      if (event) event.preventDefault();
+      const input = document.getElementById('chat-input');
+      const query = input.value.trim();
+      if (!query) return;
+
+      // إضافة رسالة المستخدم
+      appendChatMessage('user', query);
+      input.value = '';
+
+      // إظهار مؤشر الكتابة
+      const typingEl = document.getElementById('chat-typing');
+      const messagesContainer = document.getElementById('chat-messages');
+      typingEl.classList.remove('hidden');
+      messagesContainer.scrollTop = messagesContainer.scrollHeight;
+
+      // فحص إذا كان استفساراً عادياً أو أمراً لإنشاء مهمة
+      const directCommandResponse = checkSmartTaskCommand(query);
+
+      setTimeout(() => {
+        typingEl.classList.add('hidden');
+        if (directCommandResponse) {
+          appendChatMessage('bot', directCommandResponse, 'تم إدراج المهمة تلقائياً في جدول أعمالك الإدارية');
+        } else {
+          const botResponse = findBestBotAnswer(query);
+          appendChatMessage('bot', botResponse.html, botResponse.spokenText);
+        }
+        messagesContainer.scrollTop = messagesContainer.scrollHeight;
+        playSyntheticChime(false);
+      }, 450);
+    }
+
+    /* المحرك التحليلي للردود الذكية */
+    function findBestBotAnswer(query) {
+      const qLower = query.toLowerCase();
+
+      // 1. البحث في قاعدة النوايا الموسعة (Extended Intents)
+      for (const intent of EXTENDED_INTENTS) {
+        if (intent.keywords.some(k => qLower.includes(k))) {
+          const taskEncodedTitle = encodeURIComponent(intent.title);
+          const taskEncodedDept = encodeURIComponent(intent.department);
+          return {
+            spokenText: `${intent.title}. ${intent.reply}`,
+            html: `
+              <div class="space-y-2 text-slate-700 dark:text-slate-200">
+                <div class="flex items-center justify-between gap-1 border-b border-slate-200/60 dark:border-slate-700/60 pb-1.5">
+                  <span class="font-bold text-brand-700 dark:text-sky-300 text-xs">📘 ${intent.title}</span>
+                  <span class="text-[9px] bg-slate-200 dark:bg-slate-700 px-1.5 py-0.5 rounded text-slate-600 dark:text-slate-300">${intent.department}</span>
+                </div>
+                <p class="leading-relaxed text-[11px]">${intent.reply}</p>
+                <div class="bg-white/80 dark:bg-slate-800/80 p-2 rounded-lg border border-slate-200 dark:border-slate-700 text-[10px] space-y-0.5">
+                  <span class="font-bold block text-slate-800 dark:text-slate-200">الإجراء المباشر:</span>
+                  ${intent.actionSteps.map(s => `<div>• ${s}</div>`).join('')}
+                </div>
+                <!-- أزرار الإجراءات الفورية -->
+                <div class="pt-1.5 flex flex-wrap items-center gap-2 border-t border-slate-200/50 dark:border-slate-700/50 text-[10px]">
+                  <button onclick="createTaskFromChat('${taskEncodedTitle}', '${taskEncodedDept}')" class="px-2 py-1 rounded bg-brand-50 hover:bg-brand-100 dark:bg-brand-950/60 text-brand-700 dark:text-sky-300 font-bold flex items-center gap-1 transition">
+                    <svg class="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"/></svg>
+                    تحويل إلى مهمة للمتابعة
+                  </button>
+                  <button onclick="copyRawText('${escapeQuotes(intent.reply)}')" class="px-2 py-1 rounded bg-slate-100 dark:bg-slate-700 text-slate-600 dark:text-slate-300 hover:bg-slate-200 transition">
+                    نسخ الإجراء 📋
+                  </button>
+                </div>
+              </div>
+            `
+          };
+        }
+      }
+
+      // 2. البحث في دليل الأسئلة الرسمية الشائعة (FAQ_DATA)
+      let bestMatch = null;
+      let highestScore = 0;
+
+      FAQ_DATA.forEach(item => {
+        let score = 0;
+        const qWords = qLower.split(/\s+/).filter(w => w.length > 2);
+        
+        qWords.forEach(w => {
+          if (item.question.toLowerCase().includes(w)) score += 3;
+          if (item.summary.toLowerCase().includes(w)) score += 2;
+          if (item.steps.some(s => s.toLowerCase().includes(w))) score += 1;
+        });
+
+        if (score > highestScore) {
+          highestScore = score;
+          bestMatch = item;
+        }
+      });
+
+      if (bestMatch && highestScore >= 2) {
+        const taskEncodedTitle = encodeURIComponent(bestMatch.question);
+        const taskEncodedDept = encodeURIComponent(bestMatch.deptName);
+
+        return {
+          spokenText: `${bestMatch.question}. ${bestMatch.summary}`,
+          html: `
+            <div class="space-y-2 text-slate-700 dark:text-slate-200">
+              <div class="flex items-center justify-between gap-1 border-b border-slate-200/60 dark:border-slate-700/60 pb-1.5">
+                <span class="font-bold text-brand-700 dark:text-sky-300 text-xs">${bestMatch.question}</span>
+                <span class="text-[9px] bg-slate-200 dark:bg-slate-700 px-1.5 py-0.5 rounded text-slate-600 dark:text-slate-300">${bestMatch.deptName}</span>
+              </div>
+              <p class="text-[11px] leading-relaxed">${bestMatch.summary}</p>
+              <div class="bg-white/80 dark:bg-slate-800/80 p-2 rounded-lg border border-slate-200 dark:border-slate-700 space-y-1">
+                <strong class="text-[10px] block text-slate-800 dark:text-slate-200">المسار المعتمد:</strong>
+                <ul class="list-disc list-inside space-y-0.5 text-[10px]">
+                  ${bestMatch.steps.slice(0, 3).map(s => `<li>${s}</li>`).join('')}
+                </ul>
+              </div>
+              <!-- أزرار الإجراءات التفاعلية -->
+              <div class="pt-1.5 flex flex-wrap items-center gap-2 border-t border-slate-200/50 dark:border-slate-700/50 text-[10px]">
+                <button onclick="createTaskFromChat('${taskEncodedTitle}', '${taskEncodedDept}')" class="px-2 py-1 rounded bg-brand-50 hover:bg-brand-100 dark:bg-brand-950/60 text-brand-700 dark:text-sky-300 font-bold flex items-center gap-1 transition">
+                  <svg class="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"/></svg>
+                  تحويل إلى مهمة للمتابعة
+                </button>
+                <button onclick="copyProcedureText('${bestMatch.id}')" class="px-2 py-1 rounded bg-slate-100 dark:bg-slate-700 text-slate-600 dark:text-slate-300 hover:bg-slate-200 transition">
+                  نسخ الإجراء الرسمي 📋
+                </button>
+              </div>
+            </div>
+          `
+        };
+      }
+
+      // رد ذكي افتراضي
+      return {
+        spokenText: `استفسارك بخصوص ${query} يحتاج لمراجعة قسم الشؤون الإدارية أو التعليم العام في المديرية.`,
+        html: `
+          <div class="space-y-1.5 text-slate-700 dark:text-slate-200 text-xs">
+            <p>شكراً لاستفسارك بخصوص: <strong class="text-brand-600 dark:text-sky-400">"${escapeHtml(query)}"</strong>.</p>
+            <p class="text-[11px]">هذا الاستفسار يتطلب مراجعة ديوان المديرية أو القسم الإجرائي المختص للتأكد من المعاملة المعتمدة.</p>
+            <div class="p-2 rounded-lg bg-amber-50 dark:bg-amber-950/40 border border-amber-200 dark:border-amber-800 text-[10px] text-amber-800 dark:text-amber-300">
+              💡 يمكنك تسجيل هذا الاستفسار كمهمة متابعة عبر كتابة: <code>أضف مهمة: متابعة معاملة ${escapeHtml(query)}</code>
+            </div>
+          </div>
+        `
+      };
+    }
+
+    function appendChatMessage(sender, htmlContent, spokenText = '') {
+      const messagesContainer = document.getElementById('chat-messages');
+      const msgDiv = document.createElement('div');
+
+      if (sender === 'user') {
+        msgDiv.className = "flex items-start justify-end gap-2 max-w-[90%] mr-auto";
+        msgDiv.innerHTML = `
+          <div class="bg-brand-600 text-white p-3 rounded-2xl rounded-tl-none leading-relaxed text-xs shadow-sm">
+            <p>${escapeHtml(htmlContent)}</p>
+          </div>
+          <div class="w-7 h-7 rounded-full bg-slate-300 dark:bg-slate-600 text-slate-700 dark:text-white flex items-center justify-center shrink-0 text-[10px] font-bold">أنت</div>
+        `;
+      } else {
+        const speechAttr = spokenText ? `data-speech="${escapeQuotes(spokenText)}"` : '';
+        msgDiv.className = "flex items-start gap-2 max-w-[92%]";
+        msgDiv.innerHTML = `
+          <div class="w-7 h-7 rounded-full bg-sky-600 text-white flex items-center justify-center shrink-0 text-[10px] font-bold shadow-sm">AI</div>
+          <div class="relative group bg-slate-100 dark:bg-slate-700/80 p-3 rounded-2xl rounded-tr-none text-slate-700 dark:text-slate-200 leading-relaxed shadow-sm flex-1 border border-slate-200/40 dark:border-slate-600/40">
+            ${htmlContent}
+            ${spokenText ? `
+              <button onclick="speakText(this)" ${speechAttr} title="استماع للرد صوتياً" class="absolute top-2 left-2 p-1 text-slate-400 hover:text-brand-600 dark:hover:text-sky-400 transition">
+                <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15.536 8.464a5 5 0 010 7.072m2.828-9.9a9 9 0 010 12.728M5.586 15H4a1 1 0 01-1-1v-4a1 1 0 011-1h1.586l4.707-4.707C10.923 3.663 12 4.109 12 5v14c0 .891-1.077 1.337-1.707.707L5.586 15z"/></svg>
+              </button>
+            ` : ''}
+          </div>
+        `;
+      }
+
+      messagesContainer.appendChild(msgDiv);
+      messagesContainer.scrollTop = messagesContainer.scrollHeight;
+    }
+
+    /* تحويل الاستفسار إلى مهمة بنقرة واحدة */
+    function createTaskFromChat(encodedTitle, encodedDept) {
+      const title = decodeURIComponent(encodedTitle);
+      const department = decodeURIComponent(encodedDept) || 'الشؤون الإدارية';
+      
+      const tomorrow = new Date(Date.now() + 24 * 3600 * 1000).toISOString().slice(0, 16);
+      const newTask = {
+        id: 'task-' + Date.now(),
+        title: `متابعة: ${title}`,
+        department: department,
+        priority: 'urgent',
+        dueDate: tomorrow,
+        status: 'pending',
+        notes: 'تم توليد هذه المهمة بضغطة زر عبر المساعد الذكي لمتابعة الإجراء الإداري رسمياً.'
+      };
+
+      tasks.unshift(newTask);
+      saveTasksToStorage();
+      playSyntheticChime(true);
+      showToast(`تمت إضافة "${newTask.title}" إلى جدول مهامك الإدارية ⭐`, 'success');
+    }
+
+    function copyRawText(text) {
+      const tempArea = document.createElement('textarea');
+      tempArea.value = text;
+      document.body.appendChild(tempArea);
+      tempArea.select();
+      document.execCommand('copy');
+      document.body.removeChild(tempArea);
+      showToast('تم نسخ نص الرد الإداري بنجاح 📋', 'success');
+    }
+
+    function escapeQuotes(str) {
+      return str.replace(/'/g, "\\'").replace(/"/g, '&quot;');
+    }
+
+    /* ميزة الإدخال الصوتي (Speech-to-Text) */
+    let speechRecognizer = null;
+    let isListening = false;
+
+    function toggleSpeechRecognition() {
+      const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
+      if (!SpeechRecognition) {
+        showToast('متصفحك لا يدعم التعرف الصوتي المباشر، يرجى استخدام متصفح حديث مثل Chrome أو Edge.', 'info');
+        return;
+      }
+
+      if (isListening) {
+        stopSpeechRecognition();
+        return;
+      }
+
+      try {
+        speechRecognizer = new SpeechRecognition();
+        speechRecognizer.lang = 'ar-SA';
+        speechRecognizer.continuous = false;
+        speechRecognizer.interimResults = false;
+
+        const recordInd = document.getElementById('voice-recording-indicator');
+        const micIcon = document.getElementById('mic-icon');
+        const voiceBtn = document.getElementById('voice-input-btn');
+
+        speechRecognizer.onstart = () => {
+          isListening = true;
+          recordInd.classList.remove('hidden');
+          voiceBtn.classList.add('bg-rose-100', 'text-rose-600', 'dark:bg-rose-900/50');
+        };
+
+        speechRecognizer.onresult = (event) => {
+          const transcript = event.results[0][0].transcript;
+          if (transcript) {
+            document.getElementById('chat-input').value = transcript;
+            handleChatSubmit();
+          }
+        };
+
+        speechRecognizer.onerror = () => {
+          stopSpeechRecognition();
+          showToast('تعذر التقاط الصوت، تأكد من إذن الميكروفون بالمتصفح', 'error');
+        };
+
+        speechRecognizer.onend = () => {
+          stopSpeechRecognition();
+        };
+
+        speechRecognizer.start();
+      } catch (err) {
+        stopSpeechRecognition();
+      }
+    }
+
+    function stopSpeechRecognition() {
+      if (speechRecognizer) {
+        try { speechRecognizer.stop(); } catch(e) {}
+      }
+      isListening = false;
+      const recordInd = document.getElementById('voice-recording-indicator');
+      const voiceBtn = document.getElementById('voice-input-btn');
+      if (recordInd) recordInd.classList.add('hidden');
+      if (voiceBtn) voiceBtn.classList.remove('bg-rose-100', 'text-rose-600', 'dark:bg-rose-900/50');
+    }
+
+    /* نطق النصوص صوتياً (Text-to-Speech) */
+    function speakText(btn) {
+      const textToSpeak = btn.getAttribute('data-speech');
+      if (!textToSpeak || !window.speechSynthesis) return;
+
+      window.speechSynthesis.cancel();
+      const utterance = new SpeechSynthesisUtterance(textToSpeak);
+      utterance.lang = 'ar-SA';
+      utterance.rate = 0.95;
+      window.speechSynthesis.speak(utterance);
+      showToast('جاري قراءة الرد الإداري صوتياً...', 'info');
+    }
+
+    function readWelcomeMessageVoice() {
+      const welcome = "أهلاً بك زميلي في مديرية التربية والتعليم. أنا المساعد الإداري الذكي، يمكنك سؤالي عن أي إجراء إداري أو مالي وسأجيبك فوراً.";
+      if (window.speechSynthesis) {
+        window.speechSynthesis.cancel();
+        const utterance = new SpeechSynthesisUtterance(welcome);
+        utterance.lang = 'ar-SA';
+        utterance.rate = 0.95;
+        window.speechSynthesis.speak(utterance);
+      }
+    }
+
+    /* تفعيل والتركيز على المساعد الذكي العائم */
+    function activateFloatingAssistant() {
+      switchMainTab('faq-tab');
+      const input = document.getElementById('chat-input');
+      if (input) {
+        input.scrollIntoView({ behavior: 'smooth', block: 'center' });
+        input.focus();
+        showToast('تم تفعيل المساعد الذكي، تفضل بطرح استفسارك', 'info');
+      }
+    }
+
+    function clearChat() {
+      const messagesContainer = document.getElementById('chat-messages');
+      messagesContainer.innerHTML = `
+        <div class="flex items-start gap-2 max-w-[88%]">
+          <div class="w-7 h-7 rounded-full bg-brand-600 text-white flex items-center justify-center shrink-0 text-[10px] font-bold">AI</div>
+          <div class="bg-slate-100 dark:bg-slate-700/80 p-3 rounded-2xl rounded-tr-none text-slate-700 dark:text-slate-200 leading-relaxed space-y-1.5 shadow-sm">
+            <p>أهلاً بك مجدداً. تم تحديث جلسة المحادثة الإدارية. كيف يمكنني إرشادك اليوم؟</p>
+          </div>
+        </div>
+      `;
+      showToast('تم بدء محادثة جديدة', 'info');
+    }
+
+    /* ==========================================================
+       7. إدارة المهام والمواعيد والتحفيز (Tasks & Deadlines)
+       ========================================================== */
+    function filterTasksByStatus(status) {
+      currentTaskFilter = status;
+      document.querySelectorAll('.task-status-btn').forEach(btn => {
+        btn.classList.remove('active', 'bg-slate-800', 'text-white', 'dark:bg-slate-100', 'dark:text-slate-900');
+        btn.classList.add('bg-slate-100', 'dark:bg-slate-700', 'text-slate-600', 'dark:text-slate-300');
+      });
+
+      const activeBtn = document.getElementById(`task-filter-${status}`);
+      if (activeBtn) {
+        activeBtn.classList.add('active', 'bg-slate-800', 'text-white', 'dark:bg-slate-100', 'dark:text-slate-900');
+        activeBtn.classList.remove('bg-slate-100', 'dark:bg-slate-700', 'text-slate-600', 'dark:text-slate-300');
+      }
+
+      renderTasks();
+    }
+
+    function renderTasks() {
+      const container = document.getElementById('tasks-container');
+      const noTasks = document.getElementById('no-tasks');
+
+      // تصفية المهام
+      const filtered = tasks.filter(task => {
+        if (currentTaskFilter === 'pending') return task.status === 'pending';
+        if (currentTaskFilter === 'completed') return task.status === 'completed';
+        if (currentTaskFilter === 'urgent') return task.priority === 'urgent';
+        return true;
+      });
+
+      // فرز المهام: غير المكتمل أولاً، ثم حسب تاريخ الاستحقاق
+      filtered.sort((a, b) => {
+        if (a.status === 'completed' && b.status !== 'completed') return 1;
+        if (a.status !== 'completed' && b.status === 'completed') return -1;
+        return new Date(a.dueDate) - new Date(b.dueDate);
+      });
+
+      updateStatistics();
+
+      if (filtered.length === 0) {
+        container.innerHTML = '';
+        noTasks.classList.remove('hidden');
+        return;
+      }
+
+      noTasks.classList.add('hidden');
+      const now = new Date();
+
+      container.innerHTML = filtered.map(task => {
+        const dueDate = new Date(task.dueDate);
+        const isOverdue = dueDate < now && task.status !== 'completed';
+        const isDueSoon = !isOverdue && (dueDate - now) < (24 * 3600 * 1000) && task.status !== 'completed';
+
+        // وسوم الأولوية
+        let priorityBadge = '';
+        if (task.priority === 'urgent') {
+          priorityBadge = '<span class="text-[10px] font-bold px-2 py-0.5 rounded-md bg-rose-100 text-rose-700 dark:bg-rose-900/40 dark:text-rose-300 border border-rose-200 dark:border-rose-800">عاجل جداً</span>';
+        } else if (task.priority === 'medium') {
+          priorityBadge = '<span class="text-[10px] font-bold px-2 py-0.5 rounded-md bg-amber-100 text-amber-700 dark:bg-amber-900/40 dark:text-amber-300 border border-amber-200 dark:border-amber-800">متوسط</span>';
+        } else {
+          priorityBadge = '<span class="text-[10px] font-bold px-2 py-0.5 rounded-md bg-slate-100 text-slate-600 dark:bg-slate-700 dark:text-slate-300">عادي</span>';
+        }
+
+        // حالة الموعد
+        let deadlineBadge = '';
+        if (task.status === 'completed') {
+          deadlineBadge = '<span class="text-[10px] font-semibold text-emerald-600 dark:text-emerald-400">✓ تم الإنجاز</span>';
+        } else if (isOverdue) {
+          deadlineBadge = '<span class="text-[10px] font-bold text-rose-600 dark:text-rose-400 animate-pulse">⚠️ متأخرة عن الموعد</span>';
+        } else if (isDueSoon) {
+          deadlineBadge = '<span class="text-[10px] font-bold text-amber-600 dark:text-amber-400">⏳ استحقاق وشيك (خلال 24 س)</span>';
+        } else {
+          deadlineBadge = `<span class="text-[10px] text-slate-400">${formatDateTime(task.dueDate)}</span>`;
+        }
+
+        const isCompleted = task.status === 'completed';
+
+        return `
+          <div class="task-card bg-white dark:bg-slate-800 rounded-2xl border ${isOverdue ? 'border-rose-300 dark:border-rose-800/80 shadow-rose-100 dark:shadow-none' : 'border-slate-200 dark:border-slate-700'} p-4 shadow-sm flex flex-col justify-between transition-all duration-200 hover:shadow-md">
+            <div>
+              <div class="flex items-center justify-between gap-2 mb-2">
+                <span class="text-[10px] font-semibold px-2 py-0.5 rounded-md bg-slate-100 dark:bg-slate-700 text-slate-600 dark:text-slate-300">${task.department}</span>
+                <div class="flex items-center gap-1">
+                  ${priorityBadge}
+                </div>
+              </div>
+
+              <div class="flex items-start gap-2.5 mt-2">
+                <!-- مربع تحديد الإنجاز (Checkbox) -->
+                <button onclick="toggleTaskStatus('${task.id}')" title="${isCompleted ? 'إعادة إلى قيد التنفيذ' : 'تعليم كمكتملة'}" class="mt-0.5 w-5 h-5 rounded-lg border ${isCompleted ? 'bg-emerald-600 border-emerald-600 text-white' : 'border-slate-300 dark:border-slate-600 hover:border-emerald-500'} flex items-center justify-center shrink-0 transition">
+                  ${isCompleted ? '<svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M5 13l4 4L19 7"/></svg>' : ''}
+                </button>
+
+                <div class="flex-1">
+                  <h4 class="text-xs sm:text-sm font-bold leading-snug ${isCompleted ? 'line-through text-slate-400 dark:text-slate-500' : 'text-slate-800 dark:text-white'}">${escapeHtml(task.title)}</h4>
+                  ${task.notes ? `<p class="text-[11px] text-slate-500 dark:text-slate-400 mt-1 leading-relaxed">${escapeHtml(task.notes)}</p>` : ''}
+                </div>
+              </div>
+            </div>
+
+            <!-- أسفل البطاقة: الموعد والإجراءات -->
+            <div class="mt-4 pt-3 border-t border-slate-100 dark:border-slate-700/60 flex items-center justify-between">
+              <div>${deadlineBadge}</div>
+              
+              <div class="flex items-center gap-1">
+                <button onclick="openEditTaskModal('${task.id}')" title="تعديل المهمة" class="p-1 text-slate-400 hover:text-slate-700 dark:hover:text-slate-200 transition">
+                  <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15.232 5.232l3.536 3.536m-2.036-5.036a2.5 2.5 0 113.536 3.536L6.5 21.036H3v-3.572L16.732 3.732z"/></svg>
+                </button>
+                <button onclick="deleteTask('${task.id}')" title="حذف المهمة" class="p-1 text-slate-400 hover:text-rose-600 transition">
+                  <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"/></svg>
+                </button>
+              </div>
+            </div>
+          </div>
+        `;
+      }).join('');
+    }
+
+    function updateStatistics() {
+      const total = tasks.length;
+      const completed = tasks.filter(t => t.status === 'completed').length;
+      const pending = total - completed;
+      
+      const now = new Date();
+      const overdue = tasks.filter(t => {
+        return t.status !== 'completed' && new Date(t.dueDate) < now;
+      }).length;
+
+      document.getElementById('stat-total').innerText = total;
+      document.getElementById('stat-completed').innerText = completed;
+      document.getElementById('stat-pending').innerText = pending;
+      document.getElementById('stat-overdue').innerText = overdue;
+
+      const percentage = total > 0 ? Math.round((completed / total) * 100) : 0;
+      document.getElementById('progress-percentage').innerText = `${percentage}%`;
+      document.getElementById('progress-bar-fill').style.width = `${percentage}%`;
+    }
+
+    function updateHeaderCounts() {
+      const pendingCount = tasks.filter(t => t.status !== 'completed').length;
+      const countEl = document.getElementById('header-task-count');
+      if (countEl) countEl.innerText = pendingCount;
+    }
+
+    function toggleTaskStatus(id) {
+      const task = tasks.find(t => t.id === id);
+      if (!task) return;
+
+      if (task.status === 'completed') {
+        task.status = 'pending';
+        showToast('تمت إعادة المهمة لقائمة المتابعة', 'info');
+      } else {
+        task.status = 'completed';
+        // تشغيل صوت تحفيزي والتوست التحفيزي
+        playSyntheticChime(true);
+        const randomPhrase = MOTIVATIONAL_PHRASES[Math.floor(Math.random() * MOTIVATIONAL_PHRASES.length)];
+        showToast(randomPhrase, 'success');
+      }
+
+      saveTasksToStorage();
+    }
+
+    function openTaskModal() {
+      document.getElementById('modal-title').innerText = 'إضافة مهمة إدارية جديدة';
+      document.getElementById('task-id').value = '';
+      document.getElementById('task-form').reset();
+      
+      // تعيين موعد افتراضي بعد 24 ساعة من اللحظة
+      const tomorrow = new Date(Date.now() + 24 * 3600 * 1000);
+      document.getElementById('task-due').value = tomorrow.toISOString().slice(0, 16);
+      
+      document.getElementById('task-modal').classList.remove('hidden');
+    }
+
+    function openEditTaskModal(id) {
+      const task = tasks.find(t => t.id === id);
+      if (!task) return;
+
+      document.getElementById('modal-title').innerText = 'تعديل المهمة الإدارية';
+      document.getElementById('task-id').value = task.id;
+      document.getElementById('task-title').value = task.title;
+      document.getElementById('task-dept').value = task.department;
+      document.getElementById('task-priority').value = task.priority;
+      document.getElementById('task-due').value = task.dueDate;
+      document.getElementById('task-status').value = task.status;
+      document.getElementById('task-notes').value = task.notes || '';
+
+      document.getElementById('task-modal').classList.remove('hidden');
+    }
+
+    function closeTaskModal() {
+      document.getElementById('task-modal').classList.add('hidden');
+    }
+
+    function handleSaveTask(event) {
+      event.preventDefault();
+      const id = document.getElementById('task-id').value;
+      const title = document.getElementById('task-title').value.trim();
+      const department = document.getElementById('task-dept').value;
+      const priority = document.getElementById('task-priority').value;
+      const dueDate = document.getElementById('task-due').value;
+      const status = document.getElementById('task-status').value;
+      const notes = document.getElementById('task-notes').value.trim();
+
+      if (!title || !dueDate) return;
+
+      if (id) {
+        // تعديل
+        const index = tasks.findIndex(t => t.id === id);
+        if (index > -1) {
+          tasks[index] = { ...tasks[index], title, department, priority, dueDate, status, notes };
+          showToast('تم تحديث بيانات المهمة الإدارية بنجاح', 'success');
+        }
+      } else {
+        // إضافة جديد
+        const newTask = {
+          id: 'task-' + Date.now(),
+          title,
+          department,
+          priority,
+          dueDate,
+          status,
+          notes
+        };
+        tasks.unshift(newTask);
+        showToast('تم جدولة المهمة الإدارية بنجاح 📋', 'success');
+      }
+
+      saveTasksToStorage();
+      closeTaskModal();
+    }
+
+    function deleteTask(id) {
+      // إزالة المهمة مباشرة بدون alert
+      tasks = tasks.filter(t => t.id !== id);
+      saveTasksToStorage();
+      showToast('تم حذف المهمة الإدارية بنجاح', 'info');
+    }
+
+    /* ==========================================================
+       8. استيراد وتصدير المهام كملف JSON
+       ========================================================== */
+    function exportTasksJSON() {
+      const dataStr = "data:text/json;charset=utf-8," + encodeURIComponent(JSON.stringify(tasks, null, 2));
+      const downloadAnchor = document.createElement('a');
+      downloadAnchor.setAttribute("href", dataStr);
+      downloadAnchor.setAttribute("download", `مديرية_التربية_المهام_${new Date().toISOString().slice(0, 10)}.json`);
+      document.body.appendChild(downloadAnchor);
+      downloadAnchor.click();
+      downloadAnchor.remove();
+      showToast('تم تصدير ملف المهام الإدارية بنجاح 💾', 'success');
+    }
+
+    function importTasksJSON(event) {
+      const file = event.target.files[0];
+      if (!file) return;
+
+      const reader = new FileReader();
+      reader.onload = function(e) {
+        try {
+          const imported = JSON.parse(e.target.result);
+          if (Array.isArray(imported)) {
+            tasks = imported;
+            saveTasksToStorage();
+            showToast(`تم استيراد ${imported.length} مهمة إدارية بنجاح!`, 'success');
+          } else {
+            showToast('صيغة ملف المهام غير صالحة', 'error');
+          }
+        } catch(err) {
+          showToast('حدث خطأ أثناء قراءة ملف JSON', 'error');
+        }
+      };
+      reader.readAsText(file);
+      // إعادة تعيين حقل الملف ليتيح إعادة الاستيراد
+      event.target.value = '';
+    }
+
+    /* ==========================================================
+       9. نظام التنبيهات الصوتية والمسموعة عبر Web Audio API
+       ========================================================== */
+    let audioCtx = null;
+
+    function setupAudioSynth() {
+      // تجهيز سياق الصوت بعد أول تفاعل من المستخدم
+      const unlockAudio = () => {
+        if (!audioCtx) {
+          audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+        }
+        window.removeEventListener('click', unlockAudio);
+      };
+      window.addEventListener('click', unlockAudio);
+    }
+
+    function playSyntheticChime(isSuccess = true) {
+      try {
+        if (!audioCtx) {
+          audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+        }
+        if (audioCtx.state === 'suspended') {
+          audioCtx.resume();
+        }
+
+        const osc = audioCtx.createOscillator();
+        const gainNode = audioCtx.createGain();
+
+        osc.connect(gainNode);
+        gainNode.connect(audioCtx.destination);
+
+        if (isSuccess) {
+          // نغمة نجاح ثلاثية مبهجة
+          osc.type = 'sine';
+          osc.frequency.setValueAtTime(523.25, audioCtx.currentTime); // C5
+          osc.frequency.setValueAtTime(659.25, audioCtx.currentTime + 0.1); // E5
+          osc.frequency.setValueAtTime(783.99, audioCtx.currentTime + 0.2); // G5
+          gainNode.gain.setValueAtTime(0.15, audioCtx.currentTime);
+          gainNode.gain.exponentialRampToValueAtTime(0.001, audioCtx.currentTime + 0.5);
+          osc.start(audioCtx.currentTime);
+          osc.stop(audioCtx.currentTime + 0.5);
+        } else {
+          // نقرة خفيفة
+          osc.type = 'triangle';
+          osc.frequency.setValueAtTime(440, audioCtx.currentTime);
+          gainNode.gain.setValueAtTime(0.08, audioCtx.currentTime);
+          gainNode.gain.exponentialRampToValueAtTime(0.001, audioCtx.currentTime + 0.2);
+          osc.start(audioCtx.currentTime);
+          osc.stop(audioCtx.currentTime + 0.2);
+        }
+      } catch (e) {
+        // تجاوز القيود إذا تم حظر الصوت
+      }
+    }
+
+    /* ==========================================================
+       10. الإشعارات المنبثقة (Toast Notification Engine)
+       ========================================================== */
+    function showToast(message, type = 'info') {
+      const container = document.getElementById('toast-container');
+      const toast = document.createElement('div');
+      
+      let borderClass = 'border-slate-300 dark:border-slate-600';
+      let iconSvg = '';
+
+      if (type === 'success') {
+        borderClass = 'border-emerald-500 bg-emerald-50/95 dark:bg-emerald-950/90 text-emerald-900 dark:text-emerald-100';
+        iconSvg = '<svg class="w-5 h-5 text-emerald-600 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>';
+      } else if (type === 'error') {
+        borderClass = 'border-rose-500 bg-rose-50/95 dark:bg-rose-950/90 text-rose-900 dark:text-rose-100';
+        iconSvg = '<svg class="w-5 h-5 text-rose-600 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>';
+      } else {
+        borderClass = 'border-brand-500 bg-white/95 dark:bg-slate-800/95 text-slate-800 dark:text-slate-100';
+        iconSvg = '<svg class="w-5 h-5 text-brand-600 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>';
+      }
+
+      toast.className = `pointer-events-auto p-3.5 rounded-xl border shadow-lg backdrop-blur flex items-center gap-3 text-xs transition-all duration-300 transform translate-y-4 opacity-0 ${borderClass}`;
+      toast.innerHTML = `
+        ${iconSvg}
+        <span class="font-medium flex-1 leading-snug">${message}</span>
+      `;
+
+      container.appendChild(toast);
+
+      // Animation in
+      requestAnimationFrame(() => {
+        toast.classList.remove('translate-y-4', 'opacity-0');
+      });
+
+      // Auto Dismiss
+      setTimeout(() => {
+        toast.classList.add('opacity-0', 'translate-y-2');
+        setTimeout(() => toast.remove(), 300);
+      }, 4000);
+    }
+
+    /* ==========================================================
+       11. دوال مساعدة (Helper Functions)
+       ========================================================== */
+    function formatDateTime(dateStr) {
+      if (!dateStr) return '';
+      const date = new Date(dateStr);
+      return date.toLocaleString('ar-EG', {
+        month: 'short',
+        day: 'numeric',
+        hour: '2-digit',
+        minute: '2-digit'
+      });
+    }
+
+    function escapeHtml(text) {
+      if (!text) return '';
+      const div = document.createElement('div');
+      div.innerText = text;
+      return div.innerHTML;
+    }
+  </script>
+</body>
+</html>
