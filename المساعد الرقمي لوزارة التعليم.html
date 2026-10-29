@@ -1,0 +1,242 @@
+<!doctype html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>المساعد الرقمي لوزارة التعليم</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+Arabic:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#eef3f6;--panel:#fff;--ink:#14212b;--mut:#5a6b78;--brand:#14507a;--on:#fff;--soft:#e3eef6;--accent:#e0a526;--line:#d3dde5;--ok:#1d7a4f;--bad:#b3392f;color-scheme:light;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+@media(prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#0e1820;--panel:#15232e;--ink:#e8eff5;--mut:#9db0bf;--brand:#2f86c0;--soft:#1c3345;--line:#2a3f4e;--ok:#4cc38a;--bad:#ef7d72;color-scheme:dark}}
+:root[data-theme="dark"]{--bg:#0e1820;--panel:#15232e;--ink:#e8eff5;--mut:#9db0bf;--brand:#2f86c0;--soft:#1c3345;--line:#2a3f4e;--ok:#4cc38a;--bad:#ef7d72;color-scheme:dark}
+*,*::before,*::after{box-sizing:inherit}
+html{scroll-padding-top:env(safe-area-inset-top,0px)}
+body{margin:0;background:var(--bg);color:var(--ink);font:400 16px/1.7 "IBM Plex Sans Arabic",Tahoma,"Segoe UI",sans-serif}
+button,input,textarea{font:inherit;color:inherit}
+:focus-visible{outline:3px solid var(--accent);outline-offset:2px}
+header{background:var(--brand);color:var(--on);padding:14px 16px 0}
+.top{max-width:960px;margin:0 auto;display:flex;align-items:center;gap:12px}
+.logo{width:46px;height:46px;flex:none}
+.top h1{font-size:1.2rem;margin:0;line-height:1.3}
+.top p{margin:0;font-size:.85rem;opacity:.85}
+nav{max-width:960px;margin:12px auto 0;display:flex;gap:4px;overflow-x:auto}
+nav button{background:transparent;border:0;color:var(--on);opacity:.75;padding:10px 16px;border-radius:10px 10px 0 0;cursor:pointer;font-weight:500;white-space:nowrap}
+nav button[aria-selected="true"]{background:var(--bg);color:var(--ink);opacity:1;font-weight:700}
+main{max-width:960px;margin:0 auto;padding:16px}
+section[hidden]{display:none}
+.chat{background:var(--panel);border:1px solid var(--line);border-radius:14px;display:flex;flex-direction:column;height:min(660px,calc(100dvh - 200px));min-height:420px}
+#msgs{flex:1;overflow-y:auto;padding:16px;display:flex;flex-direction:column;gap:12px}
+.m{max-width:min(560px,88%);padding:10px 14px;border-radius:14px;white-space:pre-wrap;overflow-wrap:anywhere}
+.m.u{align-self:flex-start;background:var(--brand);color:var(--on);border-end-start-radius:4px}
+.m.b{align-self:flex-end;background:var(--soft);border-end-end-radius:4px}
+.fb{display:flex;gap:6px;margin-top:6px;align-items:center;font-size:.8rem;color:var(--mut)}
+.fb button{border:1px solid var(--line);background:var(--panel);border-radius:8px;padding:2px 10px;cursor:pointer}
+.fb button[disabled]{opacity:.5;cursor:default}
+.chips{display:flex;gap:8px;flex-wrap:wrap;padding:0 16px 10px}
+.chips button{background:var(--panel);border:1px solid var(--brand);color:var(--brand);padding:5px 12px;border-radius:99px;cursor:pointer;font-size:.88rem}
+.chips button:hover{background:var(--soft)}
+.send{display:flex;gap:8px;padding:12px;border-top:1px solid var(--line)}
+.send input{flex:1;min-width:0;padding:11px 14px;border:1px solid var(--line);border-radius:10px;background:var(--bg)}
+.btn{background:var(--brand);color:var(--on);border:0;padding:10px 20px;border-radius:10px;cursor:pointer;font-weight:600}
+.btn.alt{background:transparent;color:var(--brand);border:1px solid var(--brand)}
+.btn.del{background:transparent;color:var(--bad);border:1px solid var(--bad);padding:4px 12px}
+.note{font-size:.82rem;color:var(--mut);text-align:center;margin:8px 0 0}
+.dots span{display:inline-block;width:7px;height:7px;margin:0 2px;border-radius:50%;background:var(--mut);animation:b 1s infinite}
+.dots span:nth-child(2){animation-delay:.15s}.dots span:nth-child(3){animation-delay:.3s}
+@keyframes b{50%{transform:translateY(-4px);opacity:.4}}
+@media(prefers-reduced-motion:reduce){.dots span{animation:none}}
+.card{background:var(--panel);border:1px solid var(--line);border-radius:14px;padding:18px;margin-bottom:16px}
+.card h2{font-size:1.1rem;margin:0 0 10px}
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(130px,1fr));gap:12px}
+.stat{background:var(--soft);border-radius:12px;padding:12px}
+.stat b{display:block;font-size:1.7rem;line-height:1.2}
+.stat span{font-size:.85rem;color:var(--mut)}
+.bar{height:10px;background:var(--line);border-radius:9px;overflow:hidden;margin-top:10px}
+.bar i{display:block;height:100%;background:var(--ok);width:0}
+label{display:block;font-weight:500;margin:10px 0 4px}
+.f{width:100%;padding:10px 12px;border:1px solid var(--line);border-radius:10px;background:var(--bg)}
+.row{display:flex;gap:10px;align-items:center;justify-content:space-between;border-top:1px solid var(--line);padding:10px 0}
+.row small{color:var(--mut);display:block}
+ul.l{padding-inline-start:20px;margin:0}
+ul.l li{margin-bottom:6px}
+.lock{max-width:340px;margin:30px auto;text-align:center}
+.credit{background:var(--soft);border-inline-start:5px solid var(--accent);padding:12px 16px;border-radius:10px}
+footer{text-align:center;color:var(--mut);font-size:.85rem;padding:8px 16px 24px}
+</style>
+</head>
+<body>
+<header>
+  <div class="top">
+    <svg class="logo" viewBox="0 0 48 48" aria-hidden="true"><circle cx="24" cy="24" r="23" fill="#fff" opacity=".12"/><path d="M8 15l16-6 16 6-16 6z" fill="#e0a526"/><path d="M14 22v8c0 3 5 6 10 6s10-3 10-6v-8l-10 4z" fill="#fff"/></svg>
+    <div><h1>المساعد الرقمي لوزارة التعليم</h1><p>اسأل عن التسجيل والنتائج والخدمات والتقويم المدرسي</p></div>
+  </div>
+  <nav role="tablist" aria-label="الأقسام">
+    <button role="tab" aria-selected="true" data-t="chat">المحادثة</button>
+    <button role="tab" aria-selected="false" data-t="admin">لوحة التحكم</button>
+    <button role="tab" aria-selected="false" data-t="about">عن المشروع</button>
+  </nav>
+</header>
+
+<main>
+<section id="chat" role="tabpanel">
+  <div class="chat">
+    <div id="msgs" aria-live="polite"></div>
+    <div class="chips" id="chips"></div>
+    <form class="send" id="form" autocomplete="off">
+      <input id="q" type="text" placeholder="اكتب سؤالك هنا، بالفصحى أو بلهجتك" aria-label="سؤالك" maxlength="300">
+      <button class="btn" type="submit">إرسال</button>
+    </form>
+  </div>
+  <p class="note">لا تكتب رقم هويتك أو بياناتك الشخصية في المحادثة. المحتوى الحالي تجريبي إلى أن يُربط بمصادر الوزارة الرسمية.</p>
+</section>
+
+<section id="admin" role="tabpanel" hidden>
+  <div id="gate" class="card lock">
+    <h2>دخول المشرفين</h2>
+    <label for="pin">رمز الدخول</label>
+    <input id="pin" class="f" type="password" inputmode="numeric" placeholder="الرمز التجريبي: 1234">
+    <p id="pinErr" class="note" style="color:var(--bad)"></p>
+    <button class="btn" id="login">دخول</button>
+  </div>
+  <div id="panel" hidden>
+    <div class="card">
+      <h2>تحليل التفاعل</h2>
+      <div class="grid" id="stats"></div>
+      <div class="bar" title="نسبة الأسئلة المجابة"><i id="okbar"></i></div>
+    </div>
+    <div class="card">
+      <h2>أسئلة بلا إجابة</h2>
+      <div id="unans"></div>
+    </div>
+    <div class="card">
+      <h2>إضافة إجابة أو تحديثها</h2>
+      <label for="kq">السؤال</label><input id="kq" class="f" maxlength="150">
+      <label for="kk">كلمات مفتاحية (افصل بينها بمسافة)</label><input id="kk" class="f" maxlength="200">
+      <label for="ka">الإجابة</label><textarea id="ka" class="f" rows="4" maxlength="800"></textarea>
+      <p id="kmsg" class="note"></p>
+      <button class="btn" id="save">حفظ الإجابة</button>
+    </div>
+    <div class="card">
+      <h2>قاعدة المعرفة <span id="kcount" style="color:var(--mut);font-weight:400"></span></h2>
+      <div id="klist"></div>
+      <p style="margin:14px 0 0"><button class="btn alt" id="reset">استعادة المحتوى الأصلي</button> <button class="btn alt" id="logout">خروج</button></p>
+    </div>
+  </div>
+</section>
+
+<section id="about" role="tabpanel" hidden>
+  <div class="card credit"><b>فريق المشروع</b><br>المصمم والمطور الرئيسي: <b>عبد الحافظ أبو عمر</b></div>
+  <div class="card">
+    <h2>ما يعمل في هذا النموذج</h2>
+    <ul class="l">
+      <li>فهم الأسئلة العربية: توحيد الهمزات والتاء المربوطة وحذف التشكيل، وقطع البادئات واللواحق، وتحويل مفردات اللهجات (شو، ايش، وين، بدي، ليش) إلى الفصحى.</li>
+      <li>مطابقة السؤال مع قاعدة المعرفة بالكلمات المفتاحية، وإظهار الاقتراحات عند ضعف الثقة بدل التخمين.</li>
+      <li>لوحة تحكم لإضافة الإجابات وحذفها، ومراجعة الأسئلة التي لم يفهمها المساعد، وقياس رضا المستخدمين.</li>
+      <li>إخفاء الأرقام الطويلة والبريد الإلكتروني من سجل الأسئلة قبل حفظه.</li>
+    </ul>
+  </div>
+  <div class="card">
+    <h2>البنية المقترحة للتشغيل الفعلي</h2>
+    <ul class="l">
+      <li><b>الواجهة:</b> تطبيق ويب متجاوب (PWA) يعمل على الهاتف والجهاز اللوحي والحاسوب، مع دعم قارئات الشاشة.</li>
+      <li><b>الخادم:</b> واجهة برمجية (API) تتصل بقاعدة بيانات الوزارة وبمستودع الأدلة والتعليمات الرسمي عبر قنوات للقراءة فقط.</li>
+      <li><b>الفهم اللغوي:</b> نموذج لغوي عربي مع استرجاع من المصادر الرسمية (RAG)، وتُعرض الإجابة مع مصدرها وتاريخ تحديثها.</li>
+      <li><b>التحويل للموظف:</b> عند انخفاض الثقة أو طلب المستخدم، تُحال المحادثة إلى موظف مختص.</li>
+    </ul>
+  </div>
+  <div class="card">
+    <h2>الأمان وحماية البيانات</h2>
+    <ul class="l">
+      <li>تشفير الاتصال (TLS) وتشفير البيانات المخزنة.</li>
+      <li>دخول المشرفين عبر الهوية الموحدة للمؤسسة مع مصادقة متعددة العوامل وصلاحيات حسب الدور. الرمز المستخدم هنا للعرض فقط.</li>
+      <li>الحد الأدنى من البيانات: لا يطلب المساعد بيانات شخصية، ويُخفي ما يظهر منها في السجلات.</li>
+      <li>سجل تدقيق لكل تعديل في المحتوى، وحدود لعدد الطلبات، وفحص دوري للثغرات.</li>
+      <li>سياسة احتفاظ محددة بالسجلات، ومراجعة قانونية بحسب أنظمة حماية البيانات المعمول بها.</li>
+    </ul>
+  </div>
+</section>
+</main>
+<footer>تصميم وتطوير: عبد الحافظ أبو عمر · نموذج أولي</footer>
+
+<script>
+const $=s=>document.querySelector(s);
+const DEF=[
+{q:"كيف أسجل طالبا جديدا في المدرسة؟",k:"تسجيل طالب جديد مدرسه التحاق صف قبول",a:"يتم التسجيل عادة عبر المدرسة أو مديرية التربية التابعة لمنطقتك. يُطلب غالبا إثبات هوية الطالب وآخر شهادة مدرسية. راجع المواعيد والشروط المحدّثة على الموقع الرسمي للوزارة."},
+{q:"كيف أعرف نتيجة الثانوية العامة (التوجيهي)؟",k:"نتيجه نتايج ثانويه عامه توجيهي رقم جلوس علامات",a:"تُعلن النتائج عبر الموقع الرسمي للوزارة وخدمات الرسائل، وتحتاج عادة إلى رقم الجلوس. تأكد من تاريخ الإعلان من صفحة الإعلانات الرسمية."},
+{q:"ما موعد بدء العام الدراسي والعطل؟",k:"موعد بدايه دوام عام دراسي تقويم عطله اجازه امتحانات جدول",a:"ينشر التقويم المدرسي السنوي على الموقع الرسمي، ويشمل بداية العام والعطل الرسمية ومواعيد الامتحانات. قد تتغير بعض المواعيد بقرار من الوزارة، فتابع الإعلانات."},
+{q:"كيف أصدّق شهادتي أو أعادلها؟",k:"تصديق شهاده معادله وثيقه تخرج مصدقه",a:"يُقدَّم طلب التصديق أو المعادلة عبر الجهة المختصة في الوزارة مع الشهادة الأصلية وصورة الهوية. الرسوم والمدة تختلف حسب نوع الشهادة، فراجع صفحة الخدمات."},
+{q:"كيف أقدّم شكوى أو اقتراحا؟",k:"شكوى شكاوي اقتراح ملاحظه تظلم بلاغ",a:"يمكنك تقديم الشكوى أو الاقتراح عبر قنوات التواصل الرسمية للوزارة أو لدى مديرية التربية، مع ذكر اسم المدرسة وتفاصيل الحالة وتاريخها."},
+{q:"كيف أتواصل مع الوزارة؟",k:"تواصل اتصال رقم هاتف عنوان ايميل دوام موظف",a:"تجد أرقام التواصل وساعات الدوام وعناوين مديريات التربية في صفحة اتصل بنا على الموقع الرسمي. إن أردت التحدث مع موظف فاطلب ذلك هنا."}
+];
+const SUG=["كيف أسجل طالب جديد؟","شو موعد نتائج التوجيهي؟","متى العطلة الدراسية؟","وين أقدم شكوى؟"];
+const DIAL={شو:"ما",ايش:"ما",اش:"ما",وين:"اين",فين:"اين",امتي:"متي",امتا:"متي",ليش:"لماذا",لشو:"لماذا",بدي:"اريد",بدنا:"نريد",شلون:"كيف",ازاي:"كيف",كيفيه:"كيف",توجيهي:"توجيهي ثانويه",التوجيهي:"توجيهي ثانويه",نتايج:"نتيجه",علامات:"نتيجه علامات",عطله:"عطله اجازه",اجازه:"عطله اجازه",ايميل:"ايميل تواصل",ببعت:"ارسل"};
+const STOP=new Set("ما ماذا هل في من الي علي عن او ان كيف اين متي لماذا انا هذا هذه هو هي لو مع ثم كل اريد نريد ممكن لو بس يا".split(" "));
+const norm=s=>s.replace(/[\u064B-\u0652\u0640]/g,"").replace(/[أإآٱ]/g,"ا").replace(/ى/g,"ي").replace(/ة/g,"ه").replace(/[؟?!.,،؛:()"«»]/g," ").toLowerCase().replace(/\s+/g," ").trim();
+function stem(w){if(w.length<4)return w;w=w.replace(/^(وال|بال|لل|ال|و|ب|ل|ف)(?=.{3})/,"");return w.replace(/(ات|ون|ين|ان|ه|ها|ي)$/,m=>w.length>4?"":m)}
+function toks(s){const out=[];for(const w of norm(s).split(" ")){if(!w)continue;const e=(DIAL[w]||w).split(" ");for(const x of e)if(!STOP.has(x)){const t=stem(x);if(t)out.push(t)}}return out}
+function load(k,d){try{const v=localStorage.getItem(k);return v?JSON.parse(v):d}catch(e){return d}}
+function save(k,v){try{localStorage.setItem(k,JSON.stringify(v))}catch(e){}}
+let kb=load("moe_kb",null)||DEF.slice(), logs=load("moe_logs",[]);
+const mask=s=>s.replace(/\d{6,}/g,"######").replace(/\S+@\S+/g,"[بريد]");
+function match(q){
+  const qt=[...new Set(toks(q))];if(!qt.length)return null;
+  let best=null,top=0;
+  for(const e of kb){const kt=new Set(toks(e.k)),qs=new Set(toks(e.q));let s=0;
+    for(const t of qt){if(kt.has(t))s+=2;else if(qs.has(t))s+=1}
+    if(s>top){top=s;best=e}}
+  return top>=2?{e:best,c:Math.min(1,top/(2*Math.min(qt.length,3)))}:null;
+}
+const msgs=$("#msgs");
+function add(text,who){const d=document.createElement("div");d.className="m "+who;d.textContent=text;msgs.appendChild(d);msgs.scrollTop=msgs.scrollHeight;return d}
+function ask(text){
+  text=text.trim();if(!text)return;
+  add(text,"u");
+  const wait=add("","b");wait.innerHTML='<span class="dots"><span></span><span></span><span></span></span>';
+  setTimeout(()=>{
+    const n=norm(text);let reply,ok=false;
+    if(/^(سلام|مرحبا|اهلا|هلا|صباح|مساء)/.test(n)&&n.split(" ").length<4){reply="أهلا بك. اسألني عن التسجيل أو النتائج أو التقويم المدرسي أو الشكاوى.";ok=true}
+    else if(/(موظف|شخص حقيقي|بشري)/.test(n)){reply="سأحوّل محادثتك إلى موظف مختص. في هذا النموذج التجريبي، تواصل مع أقرب مديرية تربية أو عبر الموقع الرسمي للوزارة.";ok=true}
+    else{const r=match(text);
+      if(r){reply=r.e.a;ok=true;if(r.c<.5)reply="أقرب إجابة وجدتها لسؤالك:\n\n"+reply}
+      else reply="لم أفهم سؤالك بدقة. جرّب صياغة أخرى، أو اختر أحد الأسئلة أدناه، أو اطلب التحدث مع موظف."}
+    wait.textContent=reply;
+    const li={t:Date.now(),q:mask(text).slice(0,150),ok,fb:0};logs.push(li);logs=logs.slice(-200);save("moe_logs",logs);
+    if(ok){const f=document.createElement("div");f.className="fb";f.innerHTML="<span>هل أفادتك الإجابة؟</span>";
+      [["نعم",1],["لا",-1]].forEach(([l,v])=>{const b=document.createElement("button");b.textContent=l;b.onclick=()=>{li.fb=v;save("moe_logs",logs);f.textContent="شكرا لملاحظتك"};f.appendChild(b)});wait.appendChild(f)}
+    msgs.scrollTop=msgs.scrollHeight;
+  },550);
+}
+$("#form").onsubmit=e=>{e.preventDefault();const i=$("#q");ask(i.value);i.value=""};
+SUG.forEach(s=>{const b=document.createElement("button");b.textContent=s;b.onclick=()=>ask(s);$("#chips").appendChild(b)});
+add("مرحبا بك في المساعد الرقمي لوزارة التعليم. كيف يمكنني مساعدتك اليوم؟","b");
+
+document.querySelectorAll("nav button").forEach(b=>b.onclick=()=>{
+  document.querySelectorAll("nav button").forEach(x=>x.setAttribute("aria-selected",x===b));
+  ["chat","admin","about"].forEach(id=>$("#"+id).hidden=id!==b.dataset.t);
+  if(b.dataset.t==="admin"&&!$("#panel").hidden)render();
+});
+$("#login").onclick=()=>{if($("#pin").value==="1234"){$("#gate").hidden=true;$("#panel").hidden=false;render()}else $("#pinErr").textContent="الرمز غير صحيح. حاول مرة أخرى."};
+$("#logout").onclick=()=>{$("#panel").hidden=true;$("#gate").hidden=false;$("#pin").value="";$("#pinErr").textContent=""};
+function render(){
+  const tot=logs.length,ok=logs.filter(l=>l.ok).length,up=logs.filter(l=>l.fb===1).length,dn=logs.filter(l=>l.fb===-1).length;
+  $("#stats").innerHTML="";
+  [[tot,"إجمالي الأسئلة"],[tot?Math.round(ok/tot*100)+"%":"0%","نسبة المجابة"],[up,"تقييم إيجابي"],[dn,"تقييم سلبي"]].forEach(([n,l])=>{const d=document.createElement("div");d.className="stat";d.innerHTML="<b></b><span></span>";d.firstChild.textContent=n;d.lastChild.textContent=l;$("#stats").appendChild(d)});
+  $("#okbar").style.width=(tot?ok/tot*100:0)+"%";
+  const un=[...new Set(logs.filter(l=>!l.ok).map(l=>l.q))].slice(-8).reverse(),U=$("#unans");U.innerHTML="";
+  if(!un.length)U.textContent="لا توجد أسئلة بلا إجابة حاليا.";
+  un.forEach(q=>{const r=document.createElement("div");r.className="row";const s=document.createElement("span");s.textContent=q;const b=document.createElement("button");b.className="btn alt";b.textContent="أضف إجابة";b.onclick=()=>{$("#kq").value=q;$("#kk").value=toks(q).join(" ");$("#ka").focus()};r.append(s,b);U.appendChild(r)});
+  const L=$("#klist");L.innerHTML="";$("#kcount").textContent="("+kb.length+")";
+  kb.forEach((e,i)=>{const r=document.createElement("div");r.className="row";const s=document.createElement("div");const t=document.createElement("b");t.textContent=e.q;const sm=document.createElement("small");sm.textContent=e.a.slice(0,90)+(e.a.length>90?"…":"");s.append(t,sm);const b=document.createElement("button");b.className="btn del";b.textContent="حذف";b.onclick=()=>{kb.splice(i,1);save("moe_kb",kb);render()};r.append(s,b);L.appendChild(r)});
+}
+$("#save").onclick=()=>{
+  const q=$("#kq").value.trim(),k=$("#kk").value.trim(),a=$("#ka").value.trim();
+  if(!q||!a){$("#kmsg").textContent="اكتب السؤال والإجابة قبل الحفظ.";return}
+  const i=kb.findIndex(e=>e.q===q),e={q,k:k||q,a};
+  if(i>=0)kb[i]=e;else kb.push(e);
+  save("moe_kb",kb);["#kq","#kk","#ka"].forEach(s=>$(s).value="");$("#kmsg").textContent="تم حفظ الإجابة.";render();
+};
+$("#reset").onclick=()=>{kb=DEF.slice();save("moe_kb",kb);render()};
+</script>
+</body>
+</html>
